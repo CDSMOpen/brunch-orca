@@ -1,0 +1,11 @@
+strong, b{font-weight:bold;}
+em{font-style:italic;}
+*{
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+a{outline:0;}
+input, textarea{
+	&:focus{outline:none;}
+}

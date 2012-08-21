@@ -1,0 +1,97 @@
+/*	Tablet Layout: landscape	*/
+@media only screen and (min-width:945px) and (max-width: 1024px) { 
+	div#Cont{width:950px;}
+	/* - */
+	#Main{min-height:400px;}
+	/* - */
+	footer{ 
+		li a{width:50px; height:100px;
+			&.Prev, &.Next{
+				/*background-color:rgba(212, 212, 212, 0.2);*/
+			}
+			&:focus, &:active, &:hover{width:50px;
+				/*background-color:rgba(212, 212, 212, 0.2);*/
+			}
+		}
+	}
+	html.FrontPage{
+		article#Main{min-height:550px;}
+	}
+}
+
+/*		Tablet Layout */
+@media only screen and (min-width: 768px) and (max-width: 945px) { 
+	div#Cont{width:700px;}
+	header{width:700px;}
+	/* - */
+	#Menu{
+		ol{margin:0;
+			li{
+				p{
+					img{}
+					a{font-size:18px;
+						&:hover, &:focus, &:active{}    
+					}
+				}
+			}
+		}
+	}
+	/* - */
+	#Main{min-height:655px;
+		h2{margin:6.112px 0 22.250px 0;}
+		img{
+			&.small, &.medium, &.large{width:257.074px; max-width:257.074px;}
+		}
+		section.video.aside, 
+		section.aside.video{
+			div.video{margin:0 0 16px 0; width:608px; max-width:608px; height:341px; float:none; display:block;}
+			aside{margin:0; padding:16px 0 0 0;}
+		}
+		section.outcomes{
+			h1, h2, h3, h4, ul, .spotlight{margin-right:273px;}
+			img{
+				&.small, &.medium, &.large{margin-top:16px; width:236.726px; max-width:236.726px;}
+			}
+		}
+		.AudioWrapper{max-width:336px;
+			audio{width:100%;}
+		}
+		/* - */
+		ul.hotspot{
+			li{
+				div.Canvas{
+					div.Overlay{
+						div.Spot{margin:-10px 0 0 0;}
+					}
+				}
+			}
+		}
+	}
+	/* - */
+	footer{
+		li a{width:50px; height:100px;
+			&.Prev, &.Next{
+				background-color:rgba(212, 212, 212, 0.2);
+			}
+			&:focus, &:active, &:hover{width:50px;
+					background-color:rgba(212, 212, 212, 0.2); 
+			}
+		}
+	}
+
+	/* - */
+	html.FrontPage{
+		div#Cont{width:728px;}
+		article#Main{min-height:800px;
+			.CoverInfo{left:70px;
+				h2{font-size:28px; line-height:38px;}
+			}
+			.CoverImg{
+				img.Cover{margin-left:-100px; margin-top:0; width:170%;}  
+			}
+		}
+		footer{margin:-865px auto 0 auto; margin-left:-364px; width:728px;}
+	}
+	
+	
+}

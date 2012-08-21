@@ -1,0 +1,5 @@
+@mixin InlineBlock{display:-moz-inline-stack; display:inline-block; zoom:1; *display:inline;}
+/* @include InlineBlock(); */
+
+@mixin TextIndent{text-indent: -9000px; text-transform: capitalize;}
+/* @include TextIndent(); */

@@ -1,0 +1,5 @@
+[
+	{ "name" : "Do the dishes", "completed": "0" },
+	{ "name" : "Call the bank", "completed": "0" }, 
+	{ "name" : "Do some other stuff", "completed": "0" } 
+]

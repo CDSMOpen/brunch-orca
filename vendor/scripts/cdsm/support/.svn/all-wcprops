@@ -1,0 +1,41 @@
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/brunchskeletons/!svn/ver/9/brunch-dolphins/trunk/vendor/scripts/cdsm/support
+END
+view.coffee
+K 25
+svn:wc:ra_dav:version-url
+V 93
+/svn/brunchskeletons/!svn/ver/9/brunch-dolphins/trunk/vendor/scripts/cdsm/support/view.coffee
+END
+collection.coffee
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/brunchskeletons/!svn/ver/9/brunch-dolphins/trunk/vendor/scripts/cdsm/support/collection.coffee
+END
+model.coffee
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/brunchskeletons/!svn/ver/9/brunch-dolphins/trunk/vendor/scripts/cdsm/support/model.coffee
+END
+router.coffee
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/brunchskeletons/!svn/ver/9/brunch-dolphins/trunk/vendor/scripts/cdsm/support/router.coffee
+END
+application.coffee
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/brunchskeletons/!svn/ver/9/brunch-dolphins/trunk/vendor/scripts/cdsm/support/application.coffee
+END
+event_aggregator.coffee
+K 25
+svn:wc:ra_dav:version-url
+V 105
+/svn/brunchskeletons/!svn/ver/8/brunch-dolphins/trunk/vendor/scripts/cdsm/support/event_aggregator.coffee
+END

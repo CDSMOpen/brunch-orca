@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/brunchskeletons/!svn/ver/6/brunch-dolphins/trunk/app/templates
+END
+application_template.eco
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/brunchskeletons/!svn/ver/6/brunch-dolphins/trunk/app/templates/application_template.eco
+END
+view1_template.eco
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/brunchskeletons/!svn/ver/6/brunch-dolphins/trunk/app/templates/view1_template.eco
+END
+view2_template.eco
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/brunchskeletons/!svn/ver/6/brunch-dolphins/trunk/app/templates/view2_template.eco
+END

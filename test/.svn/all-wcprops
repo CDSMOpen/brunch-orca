@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/brunchskeletons/!svn/ver/9/brunch-dolphins/trunk/test
+END
+test-helpers.coffee
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/brunchskeletons/!svn/ver/5/brunch-dolphins/trunk/test/test-helpers.coffee
+END
+mocha.opts
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/brunchskeletons/!svn/ver/5/brunch-dolphins/trunk/test/mocha.opts
+END

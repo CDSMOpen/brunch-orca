@@ -1,0 +1,2 @@
+<td><%= @get("name")%></td>
+<td><%= @get("completed")%></td>

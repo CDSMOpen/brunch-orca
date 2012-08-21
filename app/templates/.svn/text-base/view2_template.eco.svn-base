@@ -1,0 +1,8 @@
+<h1><%= @get('title') %></h1>
+<h2>View Two</h2>
+<ul>
+	<li><a href="#" class="home">Home</a></li>
+	<li><a href="#" class="view1">View 1</a></li>
+	<li><a href="#" class="view2">View 2</a></li>
+</ul>
+<p>This is custom content on the View2 template</p>

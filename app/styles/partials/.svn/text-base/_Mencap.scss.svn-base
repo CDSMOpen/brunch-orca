@@ -1,0 +1,184 @@
+div#Cont{@include border-radius(0 0 15px 15px);}
+
+/*.score_card{display:block!important;}*/
+
+
+/* - - */
+.Prog{
+	a{color:transparent;
+			background: #e8e7e5;
+			background: -moz-linear-gradient(top,  #e8e7e5 0%, #dad9d7 100%);
+			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e8e7e5), color-stop(100%,#dad9d7));
+			background: -webkit-linear-gradient(top,  #e8e7e5 0%,#dad9d7 100%);
+			background: -o-linear-gradient(top,  #e8e7e5 0%,#dad9d7 100%);
+			background: -ms-linear-gradient(top,  #e8e7e5 0%,#dad9d7 100%);
+			background: linear-gradient(top,  #e8e7e5 0%,#dad9d7 100%);
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e8e7e5', endColorstr='#dad9d7',GradientType=0 );	
+		&:focus, &:active, &:hover{color:#333333;}
+		&.Visited{color:transparent;
+				background: #008894;
+				background: -moz-linear-gradient(top,  #008894 0%, #00a0ac 67%, #00aab4 100%);
+				background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#008894), color-stop(67%,#00a0ac), color-stop(100%,#00aab4));
+				background: -webkit-linear-gradient(top,  #008894 0%,#00a0ac 67%,#00aab4 100%);
+				background: -o-linear-gradient(top,  #008894 0%,#00a0ac 67%,#00aab4 100%);
+				background: -ms-linear-gradient(top,  #008894 0%,#00a0ac 67%,#00aab4 100%);
+				background: linear-gradient(top,  #008894 0%,#00a0ac 67%,#00aab4 100%);
+				filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#008894', endColorstr='#00aab4',GradientType=0 );
+			&:focus, &:active, &:hover{color:#FFF;}
+		}
+		&.Current{color:#FFF;
+				background: #c7dcdf;
+				background: -moz-linear-gradient(top,  #c7dcdf 0%, #b9d1d5 3%, #74a9b1 22%, #5b9fa8 28%, #4698a4 34%, #3a98a2 38%, #2c98a2 47%, #018b98 50%, #00919e 59%, #00939f 72%, #01909e 88%, #008a97 100%);
+				background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#c7dcdf), color-stop(3%,#b9d1d5), color-stop(22%,#74a9b1), color-stop(28%,#5b9fa8), color-stop(34%,#4698a4), color-stop(38%,#3a98a2), color-stop(47%,#2c98a2), color-stop(50%,#018b98), color-stop(59%,#00919e), color-stop(72%,#00939f), color-stop(88%,#01909e), color-stop(100%,#008a97));
+				background: -webkit-linear-gradient(top,  #c7dcdf 0%,#b9d1d5 3%,#74a9b1 22%,#5b9fa8 28%,#4698a4 34%,#3a98a2 38%,#2c98a2 47%,#018b98 50%,#00919e 59%,#00939f 72%,#01909e 88%,#008a97 100%);
+				background: -o-linear-gradient(top,  #c7dcdf 0%,#b9d1d5 3%,#74a9b1 22%,#5b9fa8 28%,#4698a4 34%,#3a98a2 38%,#2c98a2 47%,#018b98 50%,#00919e 59%,#00939f 72%,#01909e 88%,#008a97 100%);
+				background: -ms-linear-gradient(top,  #c7dcdf 0%,#b9d1d5 3%,#74a9b1 22%,#5b9fa8 28%,#4698a4 34%,#3a98a2 38%,#2c98a2 47%,#018b98 50%,#00919e 59%,#00939f 72%,#01909e 88%,#008a97 100%);
+				background: linear-gradient(top,  #c7dcdf 0%,#b9d1d5 3%,#74a9b1 22%,#5b9fa8 28%,#4698a4 34%,#3a98a2 38%,#2c98a2 47%,#018b98 50%,#00919e 59%,#00939f 72%,#01909e 88%,#008a97 100%);
+				filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c7dcdf', endColorstr='#008a97',GradientType=0 );
+			&:focus, &:active, &:hover{color:#FFF;}
+		}
+	}
+}
+div.Outro{left:0; right:0; min-height:70px; @include border-radius(0 0 15px 15px);
+			border:0;
+			
+			 @include box-shadow(rgba(#015f66, 0.2) 0 -8px 8px 8px inset);
+			
+			background: #01767f;
+			background: -moz-linear-gradient(top,  #01767f 0%, #007b83 10%, #02828d 22%, #00838d 26%, #018591 28%, #018b96 50%, #018591 88%, #027e88 100%);
+			background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#01767f), color-stop(10%,#007b83), color-stop(22%,#02828d), color-stop(26%,#00838d), color-stop(28%,#018591), color-stop(50%,#018b96), color-stop(88%,#018591), color-stop(100%,#027e88));
+			background: -webkit-linear-gradient(top,  #01767f 0%,#007b83 10%,#02828d 22%,#00838d 26%,#018591 28%,#018b96 50%,#018591 88%,#027e88 100%);
+			background: -o-linear-gradient(top,  #01767f 0%,#007b83 10%,#02828d 22%,#00838d 26%,#018591 28%,#018b96 50%,#018591 88%,#027e88 100%);
+			background: -ms-linear-gradient(top,  #01767f 0%,#007b83 10%,#02828d 22%,#00838d 26%,#018591 28%,#018b96 50%,#018591 88%,#027e88 100%);
+			background: linear-gradient(top,  #01767f 0%,#007b83 10%,#02828d 22%,#00838d 26%,#018591 28%,#018b96 50%,#018591 88%,#027e88 100%);
+			filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#01767f', endColorstr='#027e88',GradientType=0 );
+			
+	
+		p{margin:0; padding:0 0 0 120px; line-height:60px; text-align:left; font-weight:bold; font-style:normal; font-size:15px;
+			border-left:0; color:#FFF; background:url(../img/Mencap/FooterBak.png) no-repeat 8px top; 
+	}
+}
+
+
+/* - Splash - */
+html.FrontPage{
+	div#Cont{background:#FFF; border:0; box-shadow:0 0 0 rgba(0, 0, 0, 0.2); @include border-radius(0);}	
+	article#Main{
+		.CoverInfo{padding:70px 0 0 0; bottom:80px; min-height:212px;
+				background:transparent;
+			h2{margin-bottom:2px; padding:16px 250px 16px 16px; border:0; font-size:36px; line-height:36px; color:#323140; background:#b8d044; text-shadow: 0 0 0 #6f8600;}
+			p{padding:10px 250px 15px 16px; display:block; font-size:14px; line-height:25px; background:#323140; color:#E1E1E1; text-shadow: 0 1px 1px #000;}
+			a{width:192px; height:212px; top:48%; margin-top:-106px; background:transparent; background:url(../img/Mencap/SpashNext.png) no-repeat center center;
+				&:focus, &:active, &:hover{
+					background:transparent; background:url(../img/Mencap/SpashNext.png) no-repeat center center; 
+					@include opacity(0.5);
+				}
+			}
+		}
+	}
+	div.Outro{min-height:40px; 
+			background:transparent; background:#FFF; @include border-radius(0); @include box-shadow(rgba(#015f66, 0.0) 0 0 0 0 inset);
+	}
+}
+
+#Main{
+	section.sequence{
+		ul.Nav{background:#c6c6c6; border-bottom:3px solid #333333;
+			li{}
+			a{background:#353535; color:#FFF; @include box-shadow(rgba(0, 0, 0, 0) 0 0 0);
+				&:hover, &:focus, &:active{background:#515151; color:#FFF; @include box-shadow(rgba(0, 0, 0, 0) 0 0 0);}
+				&.Selected{background:#d84d6a; color:#FFF; @include box-shadow(rgba(0, 0, 0, 0.3) 0 3px 3px); border:0;}
+			}
+		}
+		ul.Options{
+			a{background:#d84d6a; color:#FFF;
+				&:before{background:#736f6e;}
+				&:after{}
+				&.Reset{
+					&:after{background:url(../img/Options.png) no-repeat left top;}
+				}
+				&.Check{
+					&:after{background:url(../img/Options.png) no-repeat -43px top;}
+				}
+				&:hover, &:focus, &:active{background:#c34461;
+					&:before{background:#5b5b5b;}
+				}
+			}
+		}
+	}
+	a.download, a.Download{
+			color:#FFF; background:#333 url(../img/Down.png) no-repeat right center;
+		&:hover, &:focus, &:active{background:#707070 url(../img/Down.png) no-repeat right center; text-decoration:none;}
+	}
+}
+
+
+/* - MCQ - */
+#Main{
+	.exercise{margin:0; padding:0; list-style:none;
+		li{margin:0; padding:0; list-style:none;}
+	}
+	.mcq{@include box-shadow(#d8d8d8 0 0 0 0 inset);
+
+		p{@include box-shadow(rgba(0, 0, 0, 0) 0 0 0);	color:#FFF; text-shadow: 0 1px 1px #000; background:#333;
+			&:before{border-color:transparent #333333;}
+			&:after{background:#e6486b; color:#FFF; border:6px solid #333; text-shadow: 0 0 0 #333;}
+		}
+		ul.Answers{@include box-shadow(#d8d8d8 0 0 0 2px inset); background:#f5f5f5;
+			li{
+				label{color:#000;
+					&:hover{background:#E9FF99;}
+					&.Selected{background:#c6e100;}
+				}
+			}
+		}
+				
+	}
+}
+
+
+/*	Tablet Layout: landscape	*/
+@media only screen and (min-width:945px) and (max-width: 1024px) { }
+
+/*	Tablet Layout 				*/
+@media only screen and (min-width: 768px) and (max-width: 945px) { 
+	html.FrontPage{
+		article#Main{
+			.CoverInfo{bottom:200px;}
+		}
+	}
+}
+/*	Mobile Layout */
+@media only screen and (max-width: 768px) {
+html.FrontPage{
+	div#Cont{background:#FFF; border:0; box-shadow:0 0 0 rgba(0, 0, 0, 0.2); @include border-radius(0);}	
+	article#Main{
+		.CoverInfo{bottom:40px;
+			h2{padding:16px 100px 16px 16px; font-size:14px; line-height:18px;}
+			p{padding:10px 100px 10px 16px; display:block; font-size:11px; line-height:15px;}
+			a{width:80px; height:88px; top:48%; margin-top:-44px; background:url(../img/Mencap/SpashNext.png) no-repeat center center; background-size:100%;
+				&:focus, &:active, &:hover{
+					background:transparent; background:url(../img/Mencap/SpashNext.png) no-repeat center center; background-size:100%;
+				}
+			}
+		}
+	}
+	div.Outro{min-height:40px; 
+			background:transparent; background:#FFF; @include border-radius(0); @include box-shadow(rgba(#015f66, 0.0) 0 0 0 0 inset);
+	}
+}
+
+
+}
+/*	Wide Mobile Layout */
+@media only screen and (min-width: 480px) and (max-width: 768px) {
+	html.FrontPage{
+		article#Main{
+			.CoverInfo{bottom:35px;}
+		}
+	}
+}
+
+
+
+

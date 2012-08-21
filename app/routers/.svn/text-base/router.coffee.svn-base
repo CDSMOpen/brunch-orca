@@ -1,0 +1,20 @@
+Config = require 'config'
+
+class Router extends support.Router
+	
+	module: null
+	
+	routes:
+		'view/:id': 'page'
+		'*actions': 'default'
+	
+	#TODO: It seems like the router events could be directly bound to the
+	# Application methods, ideally the router stays very thin and deligates
+	# events to the app. Everything below this point is boilerplate code
+	# for redirecting function calls.
+	
+	default: (args) -> App.eventAggregator.trigger 'navigate:home'
+	
+	page: (id) -> App.eventAggregator.trigger "navigate:#{id}"
+
+module?.exports = Router

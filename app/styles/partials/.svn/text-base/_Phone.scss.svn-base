@@ -1,0 +1,222 @@
+/*		Mobile Layout */
+@media only screen and (max-width: 737px) {
+	html{height:100%; }
+	body{/*background:#1C1C1C;*/ height:100%;}
+	div#Cont{margin:0; padding:0 13.752px 22.250px 13.752px; width:100%; @include border-radius(0);}
+	div#Cont:before, div#Cont:after {display:none;}
+	
+	header{margin:0 auto; padding:14px 0; width:98%; overflow:hidden; height:65px; position:relative; display:block;
+	&:after{content: ''; position:absolute; left:5px; right:5px; height:20px; bottom:-25px;  @include border-radius(50px);
+			box-shadow:0 -5px 10px rgba(0, 0, 0, 0.2); @include box-shadow(rgba(0, 0, 0, 0.2) 0 -5px 10px);
+		}
+		h1, p{display:none;} 
+	}
+	/* - */
+	#Menu{margin:0 0 0 0; padding:5px 0 0 0;
+		.MenuHead{margin:15px 0 5px 0;
+			p{top:5px; font-size:16px;}
+		
+		}
+		ol{margin:0;
+			li{border-bottom:1px solid #333;
+				p{padding:0 25px 0 60px; height:85px;
+					.NumProg{/*border-right:5px solid #f1d557;*/}
+					img{display:none;}
+					a{font-size:16px;
+						&:hover, &:focus, &:active{}    
+					}
+				}
+			}
+		}
+
+	}
+	/* - */ 
+	#Main{min-height:257px;
+		h2{margin:8.499px 0 16px 0; padding:0 0 8.499px 0; font-size:36px; line-height:25.888px; font-size:22.250px;}
+		p, li{font-size:14px; line-height:20px;}
+		img.splash{margin:8.499px 0 0 0;}
+		img{
+			&.small, &.medium, &.large{display:none;}
+			&.important{margin:0 0 16px 0; display:block; width:100%;}
+		}
+		
+		p.NoAccess, p.noAccess, p.noaccess{padding:15px 5px 20px 60px; /*text-align:justify; -webkit-hyphens: auto; -moz-hyphens: auto; hyphens: auto;*/
+				color:#484631; border-bottom:5px solid #e54747; background:#FFF url(../img/NoAccess.png) no-repeat 0 19px; 
+		
+		}
+		
+		
+		
+		.AudioWrapper{max-width:100%;
+			audio{width:100%;}
+		}
+		
+		/* sections */
+		section.video.aside, 
+		section.aside.video{
+			div.video{margin:0 0 16px 0; width:100%; max-width:100%; float:none; height:180px;}
+			aside{}
+		}
+		
+		section.Text.FullScreen{overflow:visible;
+			p{margin-right:0}
+			.contentLink{margin:0 auto; position:relative; float:none; display:block; width:100%; max-width:294px; height:150px;
+					background-size:100% 100%;
+			}
+			img{width:100%;}
+		}
+		
+		section.outcomes{
+			h1, h2, h3, h4, ul{margin-right:0;}
+			img{display:none;}
+		}
+		
+		section.sequence{margin:16px 0;
+			ul.Nav{padding:0 16px; height:100px;
+				li{margin:0 1px;}
+				a{width:35px; height:35px; font-size:16px; top:-17px; line-height:35px;
+					&.Selected{width:50px; height:50px; line-height:50px; font-size:20px;
+					}
+				}
+			}
+			ul.Options{margin:0; padding:13.752px 0 0 0;} 
+		}
+		
+		section.mcq{margin:16px 0;
+			legend{padding:9.889px 16px; font-size: 14px;
+					background:#000;
+				&:after{display:none;}
+			}
+			ul{padding:22.250px 9.889px 9.889px 9.889px;
+				li{
+					label{margin:0 0 5.253px 0; padding:6.112px 16px; line-height:24px; font-size:14px;
+							border:1px solid #C7FF00;
+						&:hover{
+								background:#C7FF00;
+						}
+					}
+				}
+			}
+		}
+		
+		.image_sequence{margin:0 0 25.888px 25.888px; float:right;  width:150px; max-width:150px;
+			li, a{width:150px; max-width:150px;}
+			a{
+				&:before{content:'Click'; height:72px; line-height:72px; left:50%; margin-left:-36px; top:50%; margin-top:-36px; width:72px; line-height:72px}
+			}
+		}
+		
+		ul.hotspot{
+			li{
+				div.Canvas{
+					img{width:100%;}
+					div.Overlay{
+						div.Spot{margin:-10px 0 0 -7px; height:70px  !important; width:70px  !important;
+								/*border:1px solid #b8d044;*/
+							&:hover, &:focus, &:active{
+									/*border:1px solid #b8d044;*/
+							}					 
+						}	
+					}
+				}
+			}		
+		}
+		
+	}
+	/* - */
+	.SpotInfo{margin:22.250px 22.250px 25.888px 22.250px; padding:22.250px 0; text-align:center;
+		img{margin-bottom:16px; width:85px; height:85px;}
+		h2{padding:0 98px 8px 0; text-align:left; font-size:16px;}
+		p{padding-right:98px; font-size:13.752px; line-height:18px; text-align:left;}
+	}
+	/* - */
+	.FeedBack{width:100%;
+		.FeedMsg{margin:22.250px 22.250px 25.888px 22.250px; padding:22.250px 0;}
+		h2{padding:0 0 8px 0; text-align:left; font-size:16px;}
+		p{font-size:13.752px; line-height:18px; text-align:left;}
+	}
+	/* - */
+	div.Outro{display:none;}
+	/* - */
+	footer{min-height:45px; position:relative;
+			background:#000;
+		li a{position:absolute; width:72px; height:45px; line-height:45px; margin-bottom:0; bottom:0;
+			&.Prev{ @include border-radius(0); top:0;
+					background:#000 url(../img/NextPrevMob.png) no-repeat center -45px; border:0; /*border-right:1px solid #FFF;*/
+			}
+			&.Next{@include border-radius(0); top:0;
+					background:#000 url(../img/NextPrevMob.png) no-repeat center top; border:0; /*border-left:1px solid #FFF;*/
+			}
+			&:focus, &:active{width:72px; height:45px;}
+			&:hover{width:72px; height:45px;}
+		}
+	}
+	/* - */
+	html.FrontPage{
+		div#Cont{margin-top:10px; width:300px;}
+		article#Main{min-height:290px;
+			.CoverInfo{padding:16px 76px 16px 16px; bottom:70px; left:0;
+				h2{margin:0 0 7px 0; padding:0 0 7px 0; font-size:12px; line-height:18px;}
+				p{font-size:11px; line-height:15px;}
+				a{margin-top:-25px; width:50px; height:50px; right:12px;
+						background-size:30%;
+				}
+			}
+			.CoverImg{top:18px; right:26px;
+				img.Cover{margin-left:-30px; margin-top:-100px; width:200%;}
+			}
+		}
+		div.Outro{padding-left:47px; left:0; right:0; min-height:42px; display:block;
+				background-position:20px -5px;
+			p{display:none;}
+		}
+		footer{margin:-170px auto 0 auto; margin-left:-150px; width:300px;
+				background:transparent;
+			li a{
+				&.Next{width:50px; height:50px; right:12px; @include border-radius(8px); 
+						background:transparent;
+					&:hover, &:focus, &:active{
+							background:transparent;
+					}
+				}
+			}
+		}
+	}
+} 
+
+/*		Wide Mobile Layout */
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+	div#Cont{width:100%;}
+	
+	#Main{
+		/* section */
+		section.Text.FullScreen{
+			p{margin-right:168.488px;}
+			.contentLink{margin:0 0 16px 16px; position:absolute; float:none; width:152.488px; max-width:152.488px; height:152.488px;
+					background-size:100% 100%;
+			}
+		}
+		
+		section.sequence{
+			ul.Nav{height:40px;}
+		}
+		
+	}
+	
+	
+	html.FrontPage{
+		div#Cont{margin-top:0; width:490px;
+			.CoverInfo{left:50px; right:50px; bottom:47px;}
+		}
+		article#Main{min-height:150px;
+			.CoverImg{top:0; right:0;
+				img.Cover{margin-top:-50px; margin-left:-260px; width:180%;}
+			}
+		}
+		footer{margin:-145px auto 0 auto; width:490px; margin-left:-245px;
+			li a{
+				&.Next{right:22px;}
+			}
+		}
+	}
+}

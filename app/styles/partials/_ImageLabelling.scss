@@ -1,0 +1,57 @@
+#Main{
+	.ImageContainer{position:relative;
+		.Overlay, .Spot{position:absolute;}
+		select{ font-size:14px; line-height:28px;}
+		.Spot{
+			.Incorrect, .Correct{display:none !important;}
+		}
+		.ToolGroup{
+			.Btn.File{padding:10px 17px; width:200px; font-size:14px; font-weight:bold; @include border-radius(5px); /*line-height:35px;*/ position:relative;
+				display:-moz-inline-stack; display:inline-block; zoom:1; *display:inline;
+						background:#333333; color:#FFF;
+				&:hover{
+						background:#b6d600; color:#333333;
+				}
+				.FileClick{position:absolute; width:10px; height:10px; right:17px; top:50%; margin-top:-3px; 
+						background:url(../img/SelectDown.png) no-repeat center center; 
+				}
+			}
+			ul{display:none;}
+			
+		}
+		.ToolGroup.Selected{
+			ul{margin:0; padding:0; display:block; @include border-radius(3px 3px 0 0);
+					border:1px solid #d8d8d8; border-bottom:0; background:#f5f5f5; @include box-shadow(rgba(#000, 0.2) 0 0 5px);
+				li{margin:0; padding:0; list-style:none;
+					&:first-child a{@include border-radius(3px 3px 0 0);}
+				}
+				a{padding:8px 17px; display:block; font-weight:normal; text-decoration:none;
+						border-bottom:1px solid #d8d8d8; color:#333;
+					&:hover{
+							background:#b6d600; color:#333333;
+					}
+				}
+			}
+		}
+	}
+}
+
+/*	Tablet Layout: landscape	*/
+@media only screen and (min-width:945px) and (max-width: 1024px) { 
+
+}
+
+/*		Tablet Layout */
+@media only screen and (min-width: 768px) and (max-width: 945px) { 
+
+}
+
+/*		Mobile Layout */
+@media only screen and (max-width: 768px) {
+
+}
+
+/*		Wide Mobile Layout */
+@media only screen and (min-width: 480px) and (max-width: 768px) {
+
+}

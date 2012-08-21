@@ -1,0 +1,56 @@
+#Main{
+	.text_compare{margin:36px 0; overflow:hidden;
+		.Col{float:left; clear:none; width:49%;}
+		.Col.Answer{min-height:300px; float:right;}
+		.Col.UserAnswer{min-height:300px;} 
+		.Col.FullWidth{width:100%;}
+		textarea{padding:20px 0 0 30px; font-family: Arial, Helvetica, sans-serif; font-size:16px; line-height:22px; width:100%; min-height:298px; resize:vertical;
+				border:1px solid #b7b7b7; color:#333333;
+		}
+		.Col.Answer{font-family: Arial, Helvetica, sans-serif; @include border-radius(15px);
+				background:#333333;
+			h2{margin:0; padding:0 14px 0 45px; font-size:16px; line-height:42px; @include border-radius(15px 15px 0 0); position:relative;
+					background:#282828; color:#b6d600; border:0;
+				&:after{content:''; position:absolute; left:10px; top:50%; margin-top:-12px; width:24px;  height:24px;
+						background:url(../img/Mencap/DwnArrow.png) no-repeat center center; 
+				}
+			}
+			.ScrollArea{margin:20px 0; padding:0 30px; font-size:16px; line-height:22px; height:219px; overflow:auto;
+					color:#FFF;
+			} 
+		}
+		input{margin-top:10px; padding:8px 10px; float:right; display:block; @include border-radius(5px); font-family: Arial, Helvetica, sans-serif; font-weight:bold; font-size:14px; 
+				color:#FFF; background:#d84d69; border:0;
+			&:hover{background:#333333; cursor:pointer;}
+		}
+	}
+}
+
+/*	Tablet Layout: landscape	*/
+@media only screen and (min-width:945px) and (max-width: 1024px) { 
+
+}
+
+/*		Tablet Layout */
+@media only screen and (min-width: 768px) and (max-width: 945px) {  
+
+}
+
+/*		Mobile Layout */
+@media only screen and (max-width: 737px) {
+	#Main{
+		.text_compare{
+			.Col.Answer{margin-top:15px; min-height:10px; float:none; width:100%;}
+			.Col.UserAnswer{min-height:10px; float:none; width:100%;}
+			textarea{min-height:150px;}
+			.Col.Answer{
+				.ScrollArea{height:150px;}
+			}
+		}
+	}
+}
+
+/*		Wide Mobile Layout */
+@media only screen and (min-width: 480px) and (max-width: 768px) {
+
+}
