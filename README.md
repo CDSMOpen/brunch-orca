@@ -1,33 +1,25 @@
-# brunch-dolphins
+# brunch-orca
 
-**brunch-dolphins** is a [brunch](http://brunch.io) skeleton that uses [coffeescript](http://coffeescript.org/), [compass](http://compass-style.org/), [eco](https://github.com/sstephenson/eco/), [zepto](http://zeptojs.com/), [backbone](http://backbonejs.org/), [mocha](http://visionmedia.github.com/mocha/), [sinon](http://sinonjs.org/) and [chai](http://chaijs.com/).
+**brunch-dolphins** is a [brunch](http://brunch.io) skeleton that uses [coffeescript](http://coffeescript.org/), [compass](http://compass-style.org/), [eco](https://github.com/sstephenson/eco/), [jquery](http://jquery.com/), [backbone](http://backbonejs.org/), [mocha](http://visionmedia.github.com/mocha/), [sinon](http://sinonjs.org/) and [chai](http://chaijs.com/) with styling by [Twitter Bootstrap](http://twitter.github.com/bootstrap/index.html).
 
 ## Usage
 
 To create a new project from this skeleton run
 
-	brunch new dolphins -s git://github.com/ianllewellyn/brunch-dolphins.git
+	brunch new appname -s git://github.com/CDSMOpen/brunch-orca.git
 
 once installed run
 
 	npm start
 
-and visit `localhost:8080`
+and visit `localhost:3333`
 
 Tests are run through the mocha browser test runner, launch a web server from the project root and navigate to `/test/index.html`
 
 ## Javascript Library Versions
 
-Application
+See package.json
 
-* Backbone 0.9.2
-* Underscore 1.3.3
-* Zepto 1.0rc1
+## ToDo
 
-For testing
-
-* Chai 1.0.4
-* CoffeeScript 1.3.3
-* Mocha 1.0.3
-* Sinon 1.4.0 (pre-release)
-* sinon-chai 2.1.2
+There's a simple ToDo app /#todos to demonstrate some basic features. Uses [Mockjax](https://github.com/appendto/jquery-mockjax) to mock out Jquery Ajax calls to the service layer.
