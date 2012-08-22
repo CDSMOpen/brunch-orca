@@ -5,7 +5,7 @@ exports.config =
 			defaultExtension: 'coffee'
 			joinTo:
 				'javascripts/app.js': /^app(\/|\\)(?!libs)/
-				'javascripts/vendor.js': /^vendor/
+				'javascripts/vendor.js': /^vendor.+scripts/
 				'test/javascripts/test.js': /^test(\/|\\)(?!vendor)/
 				'test/javascripts/test-vendor.js': /^test(\/|\\)(?=vendor)/
 			order:
@@ -25,11 +25,12 @@ exports.config =
 		stylesheets:
 			joinTo:
 				'css/style.css': /^app\/styles/
+				'css/bootstrapper.css': /^vendor.+styles.+(bootstrap\.less|responsive\.less)$/
 				'test/css/test.css': /^test/
 			order:
 				before:
 					[
-						'vendor/styles/normalize.css'
+						'vendor/styles/bootstrap/bootstrap.less'
 					]
 		
 		templates:
@@ -40,5 +41,5 @@ exports.config =
 	
 	# minify: true
 	# 
-	# server:
-	# 	port: 8080
+	server:
+		port: 3333

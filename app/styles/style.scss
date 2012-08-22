@@ -4,14 +4,22 @@
 @import "compass/utilities";
 */
 
-@import "partials/reset";
-@import "partials/fonts";
-@import "partials/helpers";
-@import "partials/grid";
-@import "partials/mixins";
-@import "partials/redefine";
+//@import "partials/reset";
+//@import "partials/fonts";
+//@import "partials/helpers";
+//@import "partials/grid";
+//@import "partials/mixins";
+//@import "partials/redefine";
 
-@import "partials/base";
+//@import "partials/base";
+
+body {
+	background:transparent url('/images/textured_stripes/textured_stripes.png') left top repeat;
+}
+section#stage {
+	background-color:#FFF;
+}
+
 
 @media all and (orientation:portrait) { 
 	
@@ -20,3 +28,5 @@
 @media all and (orientation:landscape) { 
 	
 }
+
+
