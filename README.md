@@ -1,6 +1,6 @@
 # brunch-orca
 
-**brunch-dolphins** is a [brunch](http://brunch.io) skeleton that uses [coffeescript](http://coffeescript.org/), [compass](http://compass-style.org/), [eco](https://github.com/sstephenson/eco/), [jquery](http://jquery.com/), [backbone](http://backbonejs.org/), [mocha](http://visionmedia.github.com/mocha/), [sinon](http://sinonjs.org/) and [chai](http://chaijs.com/) with styling by [Twitter Bootstrap](http://twitter.github.com/bootstrap/index.html).
+**brunch-orca** is a [brunch](http://brunch.io) skeleton that uses [coffeescript](http://coffeescript.org/), [compass](http://compass-style.org/), [eco](https://github.com/sstephenson/eco/), [jquery](http://jquery.com/), [backbone](http://backbonejs.org/), [mocha](http://visionmedia.github.com/mocha/), [sinon](http://sinonjs.org/) and [chai](http://chaijs.com/) with styling by [Twitter Bootstrap](http://twitter.github.com/bootstrap/index.html).
 
 ## Usage
 
