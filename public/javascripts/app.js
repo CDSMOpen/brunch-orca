@@ -505,7 +505,7 @@ window.require.define({"templates/task_index_template": function(exports, requir
     (function() {
       (function() {
       
-        __out.push('<table class="tasks table table-bordered table-condensed">\n\t<tr>\n\t\t<th>Task</th>\n\t\t<th>Completed</th>\n\t</tr>\n</table>\n\n<a class="btn btn-small btn-info" href="#"><i class="icon-refresh icon-white"></i> Refresh</a>\n\n\n');
+        __out.push('<table class="tasks table table-bordered table-condensed table-striped">\n\t<tr>\n\t\t<th>Task</th>\n\t\t<th>Completed</th>\n\t</tr>\n</table>\n\n<a class="btn btn-small btn-info" href="#"><i class="icon-refresh icon-white"></i> Load Data</a>\n\n\n');
       
       }).call(this);
       
@@ -712,7 +712,7 @@ window.require.define({"views/TaskIndexView": function(exports, require, module)
     TaskIndexView.prototype.template = require('templates/task_index_template');
 
     TaskIndexView.prototype.events = {
-      "click a.btn:contains(Refresh)": "refresh"
+      "click a.btn:contains(Load Data)": "refresh"
     };
 
     TaskIndexView.prototype.initialize = function() {

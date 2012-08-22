@@ -1,10 +1,10 @@
-<table class="tasks table table-bordered table-condensed">
+<table class="tasks table table-bordered table-condensed table-striped">
 	<tr>
 		<th>Task</th>
 		<th>Completed</th>
 	</tr>
 </table>
 
-<a class="btn btn-small btn-info" href="#"><i class="icon-refresh icon-white"></i> Refresh</a>
+<a class="btn btn-small btn-info" href="#"><i class="icon-refresh icon-white"></i> Load Data</a>
 
 

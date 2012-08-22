@@ -5,7 +5,7 @@ class TaskIndexView extends Backbone.View
 	tagName : 'section'
 	template : require 'templates/task_index_template'
 	events :
-		"click a.btn:contains(Refresh)": "refresh"
+		"click a.btn:contains(Load Data)": "refresh"
 		
 	initialize: =>
 		@collection.on "reset", (collection, response)=>
