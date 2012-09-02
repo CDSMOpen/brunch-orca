@@ -1,5 +1,6 @@
 Config = require 'config'
-TaskIndexView = require 'views/TaskIndexView'
+TaskAppView = require 'views/task_app_view'
+TaskIndexView = require 'views/task_index_view'
 Tasks = require 'collections/tasks'
 
 class Router extends support.Router
@@ -9,7 +10,7 @@ class Router extends support.Router
 	routes      : 
 		''         : 'todoIndex'
 		'view/     : id' : 'page'
-		'todos'    : 'todoIndex'
+		'todos'    : 'todoApp'
 		'*actions' : '404'
 	
 	#TODO: It seems like the router events could be directly bound to the
@@ -20,6 +21,11 @@ class Router extends support.Router
 	default: (args) -> App.eventAggregator.trigger 'navigate:home'
 	
 	page: (id) -> App.eventAggregator.trigger "navigate:#{id}"
+	
+	todoApp: ->
+		console.log "ToDo App View"
+		view = new TaskAppView 
+		$('section#main').html(view.render().$el)
 	
 	todoIndex: -> 
 		console.log "Todos here"

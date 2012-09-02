@@ -1,2 +1,1 @@
-<td><%= @get("name")%></td>
-<td><%= @get("completed")%></td>
+<i class="icon icon-white icon-ok"/> <%= @get("name")%> 

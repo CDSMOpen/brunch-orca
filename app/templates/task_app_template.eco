@@ -1,0 +1,8 @@
+<header class="page-header">
+	<h1>What a ToDo</h1>
+	<input id="new-todo" type="text" placeholder="What next?"/>
+</header>
+<section class="todos">Index</section>
+<footer>
+<a class='btn btn-small btn-danger'>Clear All Complete</a>
+</footer>

@@ -12,6 +12,8 @@ $ ->
 	# Mock service end points
 	mocks = require "mocks/mock_services"
 	
+	# initialise the local storage adapter
+	
 	# Post on automatically cleaning up event bindings
 	# http://stackoverflow.com/questions/7567404/backbone-js-repopulate-or-recreate-the-view/7607853#7607853
 	

@@ -4,7 +4,7 @@ exports.config =
 		javascripts:
 			defaultExtension: 'coffee'
 			joinTo:
-				'javascripts/app.js': /^app(\/|\\)(?!libs)/
+				'javascripts/app.js': /^app(\/|\\)/
 				'javascripts/vendor.js': /^vendor.+scripts/
 				'test/javascripts/test.js': /^test(\/|\\)(?!vendor)/
 				'test/javascripts/test-vendor.js': /^test(\/|\\)(?=vendor)/
@@ -17,6 +17,7 @@ exports.config =
 						'vendor/scripts/backbone-mediator.js'
 						'vendor/scripts/jquery.mockjax.js'
 						'app/mocks/mock_services.js'
+						'vendor/scripts/backbone.localstorage.js'
 						
 						# 'vendor/scripts/cdsm/support/model.coffee'
 						# 'vendor/scripts/cdsm/support/composite_view.coffee'
@@ -25,7 +26,8 @@ exports.config =
 		stylesheets:
 			joinTo:
 				'css/style.css': /^app\/styles/
-				'css/bootstrapper.css': /^vendor.+styles.+(bootstrap\.less|responsive\.less)$/
+				'css/vendor.css': /^vendor.+styles.+(bootstrap\.less|responsive\.less)$/
+				# 'css/vendor.css': /^vendor/
 				'test/css/test.css': /^test/
 			order:
 				before:

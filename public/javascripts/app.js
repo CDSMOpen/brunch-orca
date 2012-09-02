@@ -146,6 +146,7 @@ window.require.define({"application": function(exports, require, module) {
 
 window.require.define({"collections/tasks": function(exports, require, module) {
   var Tasks,
+    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -154,12 +155,19 @@ window.require.define({"collections/tasks": function(exports, require, module) {
     __extends(Tasks, _super);
 
     function Tasks() {
+      this.done = __bind(this.done, this);
       return Tasks.__super__.constructor.apply(this, arguments);
     }
 
     Tasks.prototype.model = require('models/task');
 
-    Tasks.prototype.url = '/tasks';
+    Tasks.prototype.localStorage = new Store("todos");
+
+    Tasks.prototype.done = function() {
+      return this.filter(function(task) {
+        return task.get("complete");
+      });
+    };
 
     return Tasks;
 
@@ -237,6 +245,7 @@ window.require.define({"models/application_model": function(exports, require, mo
 
 window.require.define({"models/task": function(exports, require, module) {
   var Task,
+    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -245,12 +254,38 @@ window.require.define({"models/task": function(exports, require, module) {
     __extends(Task, _super);
 
     function Task() {
+      this.clear = __bind(this.clear, this);
+
+      this.toggleDone = __bind(this.toggleDone, this);
       return Task.__super__.constructor.apply(this, arguments);
     }
 
+    Task.prototype.localStorage = new Store("todos");
+
     Task.prototype.defaults = {
-      name: 'Task',
+      name: 'Get things done',
       complete: false
+    };
+
+    Task.prototype.toggleDone = function() {
+      switch (this.get('complete')) {
+        case false:
+          this.set({
+            "complete": true
+          });
+          break;
+        default:
+          this.set({
+            "complete": false
+          });
+      }
+      console.log("Setting '" + (this.get('name')) + "' to " + (this.get('complete')));
+      return this.save();
+    };
+
+    Task.prototype.clear = function() {
+      console.log("Clearing '" + (this.get("name")) + "'");
+      return this.destroy();
     };
 
     return Task;
@@ -264,13 +299,15 @@ window.require.define({"models/task": function(exports, require, module) {
 }});
 
 window.require.define({"routers/router": function(exports, require, module) {
-  var Config, Router, TaskIndexView, Tasks,
+  var Config, Router, TaskAppView, TaskIndexView, Tasks,
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
   Config = require('config');
 
-  TaskIndexView = require('views/TaskIndexView');
+  TaskAppView = require('views/task_app_view');
+
+  TaskIndexView = require('views/task_index_view');
 
   Tasks = require('collections/tasks');
 
@@ -287,7 +324,7 @@ window.require.define({"routers/router": function(exports, require, module) {
     Router.prototype.routes = {
       '': 'todoIndex',
       'view/     : id': 'page',
-      'todos': 'todoIndex',
+      'todos': 'todoApp',
       '*actions': '404'
     };
 
@@ -297,6 +334,13 @@ window.require.define({"routers/router": function(exports, require, module) {
 
     Router.prototype.page = function(id) {
       return App.eventAggregator.trigger("navigate:" + id);
+    };
+
+    Router.prototype.todoApp = function() {
+      var view;
+      console.log("ToDo App View");
+      view = new TaskAppView;
+      return $('section#main').html(view.render().$el);
     };
 
     Router.prototype.todoIndex = function() {
@@ -464,6 +508,57 @@ window.require.define({"templates/application_template": function(exports, requi
   }
 }});
 
+window.require.define({"templates/task_app_template": function(exports, require, module) {
+  module.exports = function (__obj) {
+    if (!__obj) __obj = {};
+    var __out = [], __capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return __safe(result);
+    }, __sanitize = function(value) {
+      if (value && value.ecoSafe) {
+        return value;
+      } else if (typeof value !== 'undefined' && value != null) {
+        return __escape(value);
+      } else {
+        return '';
+      }
+    }, __safe, __objSafe = __obj.safe, __escape = __obj.escape;
+    __safe = __obj.safe = function(value) {
+      if (value && value.ecoSafe) {
+        return value;
+      } else {
+        if (!(typeof value !== 'undefined' && value != null)) value = '';
+        var result = new String(value);
+        result.ecoSafe = true;
+        return result;
+      }
+    };
+    if (!__escape) {
+      __escape = __obj.escape = function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      };
+    }
+    (function() {
+      (function() {
+      
+        __out.push('<header class="page-header">\n\t<h1>What a ToDo</h1>\n\t<input id="new-todo" type="text" placeholder="What next?"/>\n</header>\n<section class="todos">Index</section>\n<footer>\n<a class=\'btn btn-small btn-danger\'>Clear All Complete</a>\n</footer>');
+      
+      }).call(this);
+      
+    }).call(__obj);
+    __obj.safe = __objSafe, __obj.escape = __escape;
+    return __out.join('');
+  }
+}});
+
 window.require.define({"templates/task_index_template": function(exports, require, module) {
   module.exports = function (__obj) {
     if (!__obj) __obj = {};
@@ -505,7 +600,7 @@ window.require.define({"templates/task_index_template": function(exports, requir
     (function() {
       (function() {
       
-        __out.push('<table class="tasks table table-bordered table-condensed table-striped">\n\t<tr>\n\t\t<th>Task</th>\n\t\t<th>Completed</th>\n\t</tr>\n</table>\n\n<a class="btn btn-small btn-info" href="#"><i class="icon-refresh icon-white"></i> Load Data</a>\n\n\n');
+        __out.push('<section class="row"><ul class="tasklist span5"><ul></section>');
       
       }).call(this);
       
@@ -556,15 +651,11 @@ window.require.define({"templates/task_view_template": function(exports, require
     (function() {
       (function() {
       
-        __out.push('<td>');
+        __out.push('<i class="icon icon-white icon-ok"/> ');
       
         __out.push(__sanitize(this.get("name")));
       
-        __out.push('</td>\n<td>');
-      
-        __out.push(__sanitize(this.get("completed")));
-      
-        __out.push('</td>\n');
+        __out.push(' ');
       
       }).call(this);
       
@@ -684,75 +775,6 @@ window.require.define({"templates/view2_template": function(exports, require, mo
   }
 }});
 
-window.require.define({"views/TaskIndexView": function(exports, require, module) {
-  var TaskIndexView, taskView,
-    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
-    __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-  taskView = require('views/TaskView');
-
-  TaskIndexView = (function(_super) {
-
-    __extends(TaskIndexView, _super);
-
-    function TaskIndexView() {
-      this.refresh = __bind(this.refresh, this);
-
-      this.render = __bind(this.render, this);
-
-      this.initialize = __bind(this.initialize, this);
-      return TaskIndexView.__super__.constructor.apply(this, arguments);
-    }
-
-    TaskIndexView.prototype.className = 'taskIndex';
-
-    TaskIndexView.prototype.tagName = 'section';
-
-    TaskIndexView.prototype.template = require('templates/task_index_template');
-
-    TaskIndexView.prototype.events = {
-      "click a.btn:contains(Load Data)": "refresh"
-    };
-
-    TaskIndexView.prototype.initialize = function() {
-      var _this = this;
-      return this.collection.on("reset", function(collection, response) {
-        console.log("update detected");
-        return _this.render();
-      });
-    };
-
-    TaskIndexView.prototype.render = function() {
-      var table,
-        _this = this;
-      this.$el.html(this.template);
-      table = this.$el.find('table');
-      this.collection.each(function(task) {
-        var t;
-        t = new taskView({
-          model: task
-        });
-        return table.append(t.render().$el);
-      });
-      return this;
-    };
-
-    TaskIndexView.prototype.refresh = function() {
-      console.log("Refreshing task collection");
-      return this.collection.fetch();
-    };
-
-    return TaskIndexView;
-
-  })(Backbone.View);
-
-  if (typeof module !== "undefined" && module !== null) {
-    module.exports = TaskIndexView;
-  }
-  
-}});
-
 window.require.define({"views/TaskView": function(exports, require, module) {
   var TaskView,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
@@ -764,20 +786,69 @@ window.require.define({"views/TaskView": function(exports, require, module) {
     __extends(TaskView, _super);
 
     function TaskView() {
+      this.setClasses = __bind(this.setClasses, this);
+
+      this.exit_anim_complete = __bind(this.exit_anim_complete, this);
+
+      this.exit = __bind(this.exit, this);
+
+      this.toggle = __bind(this.toggle, this);
+
       this.render = __bind(this.render, this);
+
+      this.initialize = __bind(this.initialize, this);
       return TaskView.__super__.constructor.apply(this, arguments);
     }
 
-    TaskView.prototype.className = "task";
+    TaskView.prototype.className = "task label label-success";
 
-    TaskView.prototype.tagName = "tr";
+    TaskView.prototype.tagName = "li";
 
     TaskView.prototype.template = require("templates/task_view_template");
 
+    TaskView.prototype.events = {
+      "click": "toggle"
+    };
+
+    TaskView.prototype.initialize = function() {
+      this.model.on("change", this.render);
+      return this.model.on("destroy", this.exit);
+    };
+
     TaskView.prototype.render = function() {
       this.$el.html(this.template(this.model));
-      console.log(this.model.get("name"));
+      console.log("rendering");
+      this.setClasses();
       return this;
+    };
+
+    TaskView.prototype.toggle = function() {
+      this.model.toggleDone();
+      this.setClasses();
+      return this.render;
+    };
+
+    TaskView.prototype.exit = function() {
+      console.log("Removing view");
+      this.delegateEvents({
+        "webkitAnimationEnd": "exit_anim_complete",
+        "animationend": "exit_anim_complete"
+      });
+      return this.$el.addClass("animated fadeOutLeft");
+    };
+
+    TaskView.prototype.exit_anim_complete = function(event) {
+      return this.remove();
+    };
+
+    TaskView.prototype.setClasses = function() {
+      if (this.model.get('complete') === true) {
+        this.$el.addClass('done label-danger');
+        return this.$el.removeClass('label-success');
+      } else {
+        this.$el.removeClass('done label-danger');
+        return this.$el.addClass('label-success');
+      }
     };
 
     return TaskView;
@@ -851,6 +922,194 @@ window.require.define({"views/application_view": function(exports, require, modu
 
   if (typeof module !== "undefined" && module !== null) {
     module.exports = ApplicationView;
+  }
+  
+}});
+
+window.require.define({"views/task_app_view": function(exports, require, module) {
+  var TaskAppView,
+    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+    __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+  TaskAppView = (function(_super) {
+
+    __extends(TaskAppView, _super);
+
+    function TaskAppView() {
+      this.clearData = __bind(this.clearData, this);
+
+      this.updateOnEnter = __bind(this.updateOnEnter, this);
+
+      this.render = __bind(this.render, this);
+
+      this.renderIndex = __bind(this.renderIndex, this);
+
+      this.initialize = __bind(this.initialize, this);
+      return TaskAppView.__super__.constructor.apply(this, arguments);
+    }
+
+    TaskAppView.prototype["class"] = "tasks";
+
+    TaskAppView.prototype.tagName = "section";
+
+    TaskAppView.prototype.template = require("templates/task_app_template");
+
+    TaskAppView.prototype.TaskModel = require("models/task");
+
+    TaskAppView.prototype.TasksView = require("views/task_index_view");
+
+    TaskAppView.prototype.TasksCollection = require("collections/tasks");
+
+    TaskAppView.prototype.events = {
+      "keypress #new-todo": "updateOnEnter",
+      "click a.btn:contains(Clear All)": "clearData"
+    };
+
+    TaskAppView.prototype.initialize = function() {
+      var taskCollection;
+      taskCollection = new this.TasksCollection([
+        {
+          "name": "task 1",
+          "complete": "false"
+        }, {
+          "name": "task 2",
+          "complete": "false"
+        }
+      ]);
+      return this.tasks = new this.TasksView({
+        collection: taskCollection
+      });
+    };
+
+    TaskAppView.prototype.renderIndex = function() {
+      return this.$el.find('section.todos').html(this.tasks.render().$el);
+    };
+
+    TaskAppView.prototype.render = function() {
+      this.$el.html(this.template);
+      this.renderIndex();
+      return this;
+    };
+
+    TaskAppView.prototype.updateOnEnter = function(e) {
+      var input;
+      if (e.keyCode !== 13) {
+        return;
+      }
+      input = $("input#new-todo");
+      if (input.val()) {
+        this.tasks.addTask(input.val());
+        return input.val('');
+      }
+    };
+
+    TaskAppView.prototype.clearData = function() {
+      return this.tasks.clearAll();
+    };
+
+    return TaskAppView;
+
+  })(Backbone.View);
+
+  if (typeof module !== "undefined" && module !== null) {
+    module.exports = TaskAppView;
+  }
+  
+}});
+
+window.require.define({"views/task_index_view": function(exports, require, module) {
+  var TaskIndexView, taskView,
+    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+    __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+  taskView = require('views/TaskView');
+
+  TaskIndexView = (function(_super) {
+
+    __extends(TaskIndexView, _super);
+
+    function TaskIndexView() {
+      this.clearAll = __bind(this.clearAll, this);
+
+      this.addOne = __bind(this.addOne, this);
+
+      this.addTask = __bind(this.addTask, this);
+
+      this.refresh = __bind(this.refresh, this);
+
+      this.render = __bind(this.render, this);
+
+      this.initialize = __bind(this.initialize, this);
+      return TaskIndexView.__super__.constructor.apply(this, arguments);
+    }
+
+    TaskIndexView.prototype.className = 'taskIndex';
+
+    TaskIndexView.prototype.tagName = 'section';
+
+    TaskIndexView.prototype.template = require('templates/task_index_template');
+
+    TaskIndexView.prototype.initialize = function() {
+      var _this = this;
+      this.collection.fetch();
+      this.collection.on("add", this.addOne);
+      return this.collection.on("reset", function(collection, response) {
+        console.log("update detected");
+        return _this.render();
+      });
+    };
+
+    TaskIndexView.prototype.render = function() {
+      var _this = this;
+      this.$el.html(this.template);
+      this.collection.each(function(task) {
+        var t;
+        t = new taskView({
+          model: task
+        });
+        return _this.$el.find('ul.tasklist').append(t.render().$el);
+      });
+      return this;
+    };
+
+    TaskIndexView.prototype.refresh = function() {
+      console.log("Refreshing task collection");
+      return this.render();
+    };
+
+    TaskIndexView.prototype.addTask = function(name) {
+      return this.collection.create({
+        "name": name
+      });
+    };
+
+    TaskIndexView.prototype.addOne = function(task, collection) {
+      var newTaskView;
+      newTaskView = new taskView({
+        model: task
+      });
+      return this.$el.find('ul.tasklist').append(newTaskView.render().$el.addClass("animated flipInX"));
+    };
+
+    TaskIndexView.prototype.clearAll = function() {
+      var completeTasks, task, _i, _len, _results;
+      completeTasks = this.collection.done();
+      _results = [];
+      for (_i = 0, _len = completeTasks.length; _i < _len; _i++) {
+        task = completeTasks[_i];
+        _results.push(task.clear());
+      }
+      return _results;
+    };
+
+    return TaskIndexView;
+
+  })(Backbone.View);
+
+  if (typeof module !== "undefined" && module !== null) {
+    module.exports = TaskIndexView;
   }
   
 }});

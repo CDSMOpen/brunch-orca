@@ -4,6 +4,8 @@
 @import "compass/utilities";
 */
 
+@import "compass/css3";
+
 //@import "partials/reset";
 //@import "partials/fonts";
 //@import "partials/helpers";
@@ -29,5 +31,55 @@ section#stage {
 @media all and (orientation:landscape) { 
 	
 }
+
+ul.tasklist {
+	list-style-type : none ;
+	
+	li.task {
+		animation-duration: 5s;
+		animation-name: fadein;
+		margin-bottom: .5em;
+		padding: 5px;
+		cursor: pointer;
+
+		i {
+			@include transition-property(scale);
+			@include transition-duration(0.2s);
+			// nice, bouncey transition curve
+			@include transition-timing-function(cubic-bezier(0.6, 2, 0.6, 1));
+			//@include transform(scale(2,2)); 
+			visibility: hidden; 
+		}
+	}
+
+	li:hover.task {
+		color:#f00;
+		i {
+			@include transform(scale(1.5,1.5));
+		}
+	};
+
+	li:hover.task, li.task.done {
+		i { 
+			visibility: visible; 
+		}
+	};
+	
+	li.task.done {
+		text-decoration: line-through;
+		opacity: 0.7;
+	}
+}
+
+@keyframes fadein {
+	0% {
+		opacity: 0;
+	}
+			
+	100% {
+		opacity: 1;
+	}
+}
+
 
 
