@@ -788,6 +788,8 @@ window.require.define({"views/TaskView": function(exports, require, module) {
     function TaskView() {
       this.setClasses = __bind(this.setClasses, this);
 
+      this.clearTransitions = __bind(this.clearTransitions, this);
+
       this.exit_anim_complete = __bind(this.exit_anim_complete, this);
 
       this.exit = __bind(this.exit, this);
@@ -807,7 +809,9 @@ window.require.define({"views/TaskView": function(exports, require, module) {
     TaskView.prototype.template = require("templates/task_view_template");
 
     TaskView.prototype.events = {
-      "click": "toggle"
+      "click": "toggle",
+      "webkitAnimationEnd": "clearTransitions",
+      "animationend": "clearTransitions"
     };
 
     TaskView.prototype.initialize = function() {
@@ -825,6 +829,8 @@ window.require.define({"views/TaskView": function(exports, require, module) {
     TaskView.prototype.toggle = function() {
       this.model.toggleDone();
       this.setClasses();
+      this.$el.removeClass("pulse");
+      this.$el.addClass("animated pulse");
       return this.render;
     };
 
@@ -839,6 +845,11 @@ window.require.define({"views/TaskView": function(exports, require, module) {
 
     TaskView.prototype.exit_anim_complete = function(event) {
       return this.remove();
+    };
+
+    TaskView.prototype.clearTransitions = function(event) {
+      console.log("removing transition classes");
+      return this.$el.removeClass("animated flipInX pulse");
     };
 
     TaskView.prototype.setClasses = function() {
