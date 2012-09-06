@@ -1,7 +1,12 @@
 class TaskView extends Backbone.View
 	className: "task label label-success"
 	tagName: "li"
+
+	# Define the template function as a property on the view allows for
+	# convenient stubbing during testing e.g. mySpy = sinon.stub(taskView,
+	# 'template')
 	template: require "templates/task_view_template"
+
 	events:
 		"click": "toggle"
 		"webkitAnimationEnd":"clearTransitions"
@@ -53,7 +58,14 @@ class TaskView extends Backbone.View
 		@$el.removeClass "animated flipInX pulse"
 
 	setClasses: =>
-		# set the css classes based on task state
+		# set the css classes based on task state 
+		#
+		# N.B. I don't like switching multiple class values like this: 'done
+		# lable- danger'. Feels like I'm creating too much of a dependency to
+		# the css layer. I'd rather just manage the 'done' class and handle
+		# any styling changes through that single value change. This is a
+		# symptom of using Twitter Bootstrap for convenience's sake
+
 		if @model.get('complete') == true
 			@$el.addClass('done label-danger')
 			@$el.removeClass 'label-success'

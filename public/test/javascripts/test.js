@@ -389,6 +389,80 @@ window.require.define({"test/cdsm/support/view_test": function(exports, require,
   
 }});
 
+window.require.define({"test/collections/tasks_test": function(exports, require, module) {
+  var TaskCollection;
+
+  TaskCollection = require('collections/tasks');
+
+  describe("Tasks collection", function() {
+    beforeEach(function() {
+      return this.tasks = new TaskCollection([
+        {
+          "name": "task 1",
+          "complete": false
+        }, {
+          "name": "task 2",
+          "complete": true
+        }, {
+          "name": "task 3",
+          "complete": true
+        }
+      ]);
+    });
+    describe("the test collection", function() {
+      return it("has 3 items", function() {
+        return this.tasks.length.should.equal(3);
+      });
+    });
+    return describe("tasks.done", function() {
+      return it("returns all 'complete' tasks (2/3)", function() {
+        return this.tasks.done().length.should.equal(2);
+      });
+    });
+  });
+  
+}});
+
+window.require.define({"test/models/task_test": function(exports, require, module) {
+  var TaskModel;
+
+  TaskModel = require('models/task');
+
+  describe("Task", function() {
+    beforeEach(function() {
+      return this.task = new TaskModel();
+    });
+    describe("New instances", function() {
+      it("should have a default name", function() {
+        return this.task.get('name').should.not.be.empty;
+      });
+      return it("should be incomplete", function() {
+        return this.task.get('complete').should.be["false"];
+      });
+    });
+    describe("task.toggleDone", function() {
+      it("should be available", function() {
+        return this.task.should.respondTo('toggleDone');
+      });
+      return it("should toggle the 'complete' state between 'true' and 'false'", function() {
+        this.task.toggleDone();
+        this.task.get('complete').should.be["true"];
+        this.task.toggleDone();
+        return this.task.get('complete').should.be["false"];
+      });
+    });
+    return describe("task.clear", function() {
+      return it("calls Backbone's destroy method", function() {
+        var taskSpy;
+        taskSpy = sinon.spy(this.task, 'destroy');
+        this.task.clear();
+        return this.task.destroy.should.have.been.calledOnce;
+      });
+    });
+  });
+  
+}});
+
 window.require.define({"test/test-helpers": function(exports, require, module) {
   
   module.exports = {
@@ -401,5 +475,109 @@ window.require.define({"test/test-helpers": function(exports, require, module) {
   
 }});
 
+window.require.define({"test/views/task_view_test": function(exports, require, module) {
+  var TaskModel, TaskView;
+
+  TaskView = require('views/task_view');
+
+  TaskModel = require('models/task');
+
+  describe("TaskView", function() {
+    beforeEach(function() {
+      var taskModel;
+      taskModel = new Backbone.Model();
+      this.stubTaskOn = sinon.stub(taskModel, 'on');
+      return this.taskView = new TaskView({
+        model: taskModel
+      });
+    });
+    describe("initialize", function() {
+      it("binds the model's 'change' event to 'render'", function() {
+        return this.stubTaskOn.should.have.been.calledWith('change', this.taskView.render);
+      });
+      return it("binds the model's 'destroy' event to 'exit'", function() {
+        return this.stubTaskOn.should.have.been.calledWith('destroy', this.taskView.exit);
+      });
+    });
+    describe("render", function() {
+      beforeEach(function() {
+        return this.templateSpy = sinon.stub(this.taskView, 'template');
+      });
+      it("element is an <li>", function() {
+        return this.taskView.$el.is('li').should.be["true"];
+      });
+      it("passes the model to the template", function() {
+        this.taskView.render();
+        return this.templateSpy.should.have.been.calledWith(this.taskView.model);
+      });
+      return describe("setting the appropriate css classes", function() {
+        it("Complete tasks have the 'done' css class", function() {
+          sinon.stub(this.taskView.model, 'get', function() {
+            return true;
+          }).withArgs('complete');
+          this.taskView.render();
+          return this.taskView.$el.hasClass('done').should.be["true"];
+        });
+        it("Incomplete tasks don't have the 'done' css class", function() {
+          sinon.stub(this.taskView.model, 'get', function() {
+            return false;
+          }).withArgs('complete');
+          this.taskView.render();
+          return this.taskView.$el.hasClass('done').should.not.be["true"];
+        });
+        return it("Adds 'pulse' class when the model's complete state has changed", function() {
+          sinon.stub(this.taskView.model, 'hasChanged', function() {
+            return true;
+          });
+          this.taskView.render();
+          return this.taskView.$el.hasClass('pulse').should.be["true"];
+        });
+      });
+    });
+    describe("toggle", function() {
+      beforeEach(function() {
+        return this.taskView.model.toggleDone = sinon.stub();
+      });
+      it("toggles the model's complete state", function() {
+        this.taskView.toggle();
+        return this.taskView.model.toggleDone.should.have.been.calledOnce;
+      });
+      return it("is triggered by clicking on the task view", function() {
+        this.taskView.$el.trigger('click');
+        return this.taskView.model.toggleDone.should.have.been.calledOnce;
+      });
+    });
+    describe("Entrance animation events", function() {
+      beforeEach(function() {
+        this.taskView.render();
+        return this.taskView.$el.addClass('animated');
+      });
+      return it("removes 'animated' class on animation end event", function() {
+        this.taskView.$el.trigger('animationend');
+        return this.taskView.$el.hasClass('animated').should.not.be["true"];
+      });
+    });
+    return describe("Exit", function() {
+      it("has no animated class before exit called", function() {
+        return this.taskView.$el.hasClass('animated').should.be["false"];
+      });
+      it("Animation classes added", function() {
+        this.taskView.exit();
+        return this.taskView.$el.hasClass('animated').should.be["true"];
+      });
+      return it("calls view.remove() on animation complete", function() {
+        sinon.stub(this.taskView, 'remove');
+        this.taskView.exit();
+        this.taskView.$el.trigger('animationend');
+        return this.taskView.remove.should.have.been.calledOnce;
+      });
+    });
+  });
+  
+}});
+
 window.require('test/cdsm/support/application_test');
 window.require('test/cdsm/support/view_test');
+window.require('test/collections/tasks_test');
+window.require('test/models/task_test');
+window.require('test/views/task_view_test');
