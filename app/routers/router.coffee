@@ -8,7 +8,7 @@ class Router extends support.Router
 	module: null
 	
 	routes      : 
-		''         : 'todoIndex'
+		''         : 'todoApp'
 		'view/     : id' : 'page'
 		'todos'    : 'todoApp'
 		'*actions' : '404'
@@ -25,15 +25,6 @@ class Router extends support.Router
 	todoApp: ->
 		console.log "ToDo App View"
 		view = new TaskAppView 
-		$('section#main').html(view.render().$el)
-	
-	todoIndex: -> 
-		console.log "Todos here"
-		taskCollection = new Tasks [
-			{"name":"task 1"}
-			{"name":"task 2"}
-		]
-		view = new TaskIndexView collection: taskCollection 
 		$('section#main').html(view.render().$el)
 	
 	404: -> 

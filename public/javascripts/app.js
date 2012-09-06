@@ -322,7 +322,7 @@ window.require.define({"routers/router": function(exports, require, module) {
     Router.prototype.module = null;
 
     Router.prototype.routes = {
-      '': 'todoIndex',
+      '': 'todoApp',
       'view/     : id': 'page',
       'todos': 'todoApp',
       '*actions': '404'
@@ -343,22 +343,6 @@ window.require.define({"routers/router": function(exports, require, module) {
       return $('section#main').html(view.render().$el);
     };
 
-    Router.prototype.todoIndex = function() {
-      var taskCollection, view;
-      console.log("Todos here");
-      taskCollection = new Tasks([
-        {
-          "name": "task 1"
-        }, {
-          "name": "task 2"
-        }
-      ]);
-      view = new TaskIndexView({
-        collection: taskCollection
-      });
-      return $('section#main').html(view.render().$el);
-    };
-
     Router.prototype[404] = function() {
       return console.log("404 - not found");
     };
@@ -369,35 +353,6 @@ window.require.define({"routers/router": function(exports, require, module) {
 
   if (typeof module !== "undefined" && module !== null) {
     module.exports = Router;
-  }
-  
-}});
-
-window.require.define({"routers/todoRouter": function(exports, require, module) {
-  var TodoRouter,
-    __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-  TodoRouter = (function(_super) {
-
-    __extends(TodoRouter, _super);
-
-    function TodoRouter() {
-      return TodoRouter.__super__.constructor.apply(this, arguments);
-    }
-
-    TodoRouter.prototype.routes = {
-      "index": "default"
-    };
-
-    TodoRouter.prototype.index = alert("yay");
-
-    return TodoRouter;
-
-  })(Backbone.Router);
-
-  if (typeof module !== "undefined" && module !== null) {
-    module.exports = TodoRouter;
   }
   
 }});
@@ -499,6 +454,61 @@ window.require.define({"templates/application_template": function(exports, requi
         __out.push(__sanitize(this.get('title')));
       
         __out.push('</h1>\n<h2>Home</h2>\n<ul>\n\t<li><a href="#" class="home">Home</a></li>\n\t<li><a href="#" class="view1">View 1</a></li>\n\t<li><a href="#" class="view2">View 2</a></li>\n</ul>\n<p>This is custom content on the Home template</p>');
+      
+      }).call(this);
+      
+    }).call(__obj);
+    __obj.safe = __objSafe, __obj.escape = __escape;
+    return __out.join('');
+  }
+}});
+
+window.require.define({"templates/flash_message_template": function(exports, require, module) {
+  module.exports = function (__obj) {
+    if (!__obj) __obj = {};
+    var __out = [], __capture = function(callback) {
+      var out = __out, result;
+      __out = [];
+      callback.call(this);
+      result = __out.join('');
+      __out = out;
+      return __safe(result);
+    }, __sanitize = function(value) {
+      if (value && value.ecoSafe) {
+        return value;
+      } else if (typeof value !== 'undefined' && value != null) {
+        return __escape(value);
+      } else {
+        return '';
+      }
+    }, __safe, __objSafe = __obj.safe, __escape = __obj.escape;
+    __safe = __obj.safe = function(value) {
+      if (value && value.ecoSafe) {
+        return value;
+      } else {
+        if (!(typeof value !== 'undefined' && value != null)) value = '';
+        var result = new String(value);
+        result.ecoSafe = true;
+        return result;
+      }
+    };
+    if (!__escape) {
+      __escape = __obj.escape = function(value) {
+        return ('' + value)
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;');
+      };
+    }
+    (function() {
+      (function() {
+      
+        __out.push('<span class="label label-warning">');
+      
+        __out.push(__sanitize(this.message));
+      
+        __out.push('</span>\n');
       
       }).call(this);
       
@@ -775,103 +785,6 @@ window.require.define({"templates/view2_template": function(exports, require, mo
   }
 }});
 
-window.require.define({"views/TaskView": function(exports, require, module) {
-  var TaskView,
-    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
-    __hasProp = {}.hasOwnProperty,
-    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-  TaskView = (function(_super) {
-
-    __extends(TaskView, _super);
-
-    function TaskView() {
-      this.setClasses = __bind(this.setClasses, this);
-
-      this.clearTransitions = __bind(this.clearTransitions, this);
-
-      this.exit_anim_complete = __bind(this.exit_anim_complete, this);
-
-      this.exit = __bind(this.exit, this);
-
-      this.toggle = __bind(this.toggle, this);
-
-      this.render = __bind(this.render, this);
-
-      this.initialize = __bind(this.initialize, this);
-      return TaskView.__super__.constructor.apply(this, arguments);
-    }
-
-    TaskView.prototype.className = "task label label-success";
-
-    TaskView.prototype.tagName = "li";
-
-    TaskView.prototype.template = require("templates/task_view_template");
-
-    TaskView.prototype.events = {
-      "click": "toggle",
-      "webkitAnimationEnd": "clearTransitions",
-      "animationend": "clearTransitions"
-    };
-
-    TaskView.prototype.initialize = function() {
-      this.model.on("change", this.render);
-      return this.model.on("destroy", this.exit);
-    };
-
-    TaskView.prototype.render = function() {
-      this.$el.html(this.template(this.model));
-      console.log("rendering");
-      this.setClasses();
-      return this;
-    };
-
-    TaskView.prototype.toggle = function() {
-      this.model.toggleDone();
-      this.setClasses();
-      this.$el.removeClass("pulse");
-      this.$el.addClass("animated pulse");
-      return this.render;
-    };
-
-    TaskView.prototype.exit = function() {
-      console.log("Removing view");
-      this.delegateEvents({
-        "webkitAnimationEnd": "exit_anim_complete",
-        "animationend": "exit_anim_complete"
-      });
-      return this.$el.addClass("animated fadeOutLeft");
-    };
-
-    TaskView.prototype.exit_anim_complete = function(event) {
-      return this.remove();
-    };
-
-    TaskView.prototype.clearTransitions = function(event) {
-      console.log("removing transition classes");
-      return this.$el.removeClass("animated flipInX pulse");
-    };
-
-    TaskView.prototype.setClasses = function() {
-      if (this.model.get('complete') === true) {
-        this.$el.addClass('done label-danger');
-        return this.$el.removeClass('label-success');
-      } else {
-        this.$el.removeClass('done label-danger');
-        return this.$el.addClass('label-success');
-      }
-    };
-
-    return TaskView;
-
-  })(Backbone.View);
-
-  if (typeof module !== "undefined" && module !== null) {
-    module.exports = TaskView;
-  }
-  
-}});
-
 window.require.define({"views/application_view": function(exports, require, module) {
   var ApplicationTemplate, ApplicationView,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
@@ -937,6 +850,89 @@ window.require.define({"views/application_view": function(exports, require, modu
   
 }});
 
+window.require.define({"views/flash_message_view": function(exports, require, module) {
+  var FlashMessageView,
+    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+    __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+  FlashMessageView = (function(_super) {
+
+    __extends(FlashMessageView, _super);
+
+    function FlashMessageView() {
+      this.clearTransitions = __bind(this.clearTransitions, this);
+
+      this.exitTransition = __bind(this.exitTransition, this);
+
+      this.enterTransition = __bind(this.enterTransition, this);
+
+      this.render = __bind(this.render, this);
+
+      this.notice = __bind(this.notice, this);
+      return FlashMessageView.__super__.constructor.apply(this, arguments);
+    }
+
+    FlashMessageView.prototype.className = 'flash';
+
+    FlashMessageView.prototype.tagName = 'section';
+
+    FlashMessageView.prototype.template = require('templates/flash_message_template');
+
+    FlashMessageView.prototype.message = "Welcome";
+
+    FlashMessageView.prototype.subscriptions = {
+      'flash:notice': 'notice'
+    };
+
+    FlashMessageView.prototype.notice = function(msg) {
+      console.log("Notice: " + msg);
+      this.message = msg;
+      return this.render();
+    };
+
+    FlashMessageView.prototype.render = function() {
+      this.$el.html(this.template({
+        "message": this.message
+      }));
+      this.clearTransitions();
+      this.enterTransition();
+      return this;
+    };
+
+    FlashMessageView.prototype.enterTransition = function() {
+      var _this = this;
+      this.$el.show();
+      this.$el.addClass("animated fadeInRight");
+      return this.$el.one("webkitAnimationEnd animationend", function() {
+        return _this.exitTransition();
+      });
+    };
+
+    FlashMessageView.prototype.exitTransition = function() {
+      var _this = this;
+      this.$el.toggleClass('delayed fadeInRight fadeOutLeft');
+      return this.$el.one("webkitAnimationEnd animationend", function() {
+        return _this.clearTransitions();
+      });
+    };
+
+    FlashMessageView.prototype.clearTransitions = function() {
+      this.$el.unbind('webkitAnimationEnd animationend');
+      this.$el.removeClass('animated delayed fadeInRight fadeOutLeft');
+      return this.$el.hide();
+    };
+
+    return FlashMessageView;
+
+  })(Backbone.View);
+
+  if (typeof module !== "undefined" && module !== null) {
+    module.exports = FlashMessageView;
+  }
+  
+}});
+
 window.require.define({"views/task_app_view": function(exports, require, module) {
   var TaskAppView,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
@@ -948,7 +944,7 @@ window.require.define({"views/task_app_view": function(exports, require, module)
     __extends(TaskAppView, _super);
 
     function TaskAppView() {
-      this.clearData = __bind(this.clearData, this);
+      this.emptyTrash = __bind(this.emptyTrash, this);
 
       this.updateOnEnter = __bind(this.updateOnEnter, this);
 
@@ -970,11 +966,13 @@ window.require.define({"views/task_app_view": function(exports, require, module)
 
     TaskAppView.prototype.TasksView = require("views/task_index_view");
 
+    TaskAppView.prototype.FlashMessagesView = require("views/flash_message_view");
+
     TaskAppView.prototype.TasksCollection = require("collections/tasks");
 
     TaskAppView.prototype.events = {
       "keypress #new-todo": "updateOnEnter",
-      "click a.btn:contains(Clear All)": "clearData"
+      "click a.btn:contains(Clear All)": "emptyTrash"
     };
 
     TaskAppView.prototype.initialize = function() {
@@ -988,18 +986,18 @@ window.require.define({"views/task_app_view": function(exports, require, module)
           "complete": "false"
         }
       ]);
-      return this.tasks = new this.TasksView({
+      this.tasks = new this.TasksView({
         collection: taskCollection
       });
+      return this.flashMessages = new this.FlashMessagesView();
     };
 
-    TaskAppView.prototype.renderIndex = function() {
-      return this.$el.find('section.todos').html(this.tasks.render().$el);
-    };
+    TaskAppView.prototype.renderIndex = function() {};
 
     TaskAppView.prototype.render = function() {
       this.$el.html(this.template);
-      this.renderIndex();
+      this.$el.find('header.page-header').append(this.flashMessages.render().$el);
+      this.$el.find('section.todos').html(this.tasks.render().$el);
       return this;
     };
 
@@ -1015,7 +1013,7 @@ window.require.define({"views/task_app_view": function(exports, require, module)
       }
     };
 
-    TaskAppView.prototype.clearData = function() {
+    TaskAppView.prototype.emptyTrash = function() {
       return this.tasks.clearAll();
     };
 
@@ -1030,12 +1028,14 @@ window.require.define({"views/task_app_view": function(exports, require, module)
 }});
 
 window.require.define({"views/task_index_view": function(exports, require, module) {
-  var TaskIndexView, taskView,
+  var TaskIndexView, mediator, taskView,
     __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
     __hasProp = {}.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
-  taskView = require('views/TaskView');
+  taskView = require('views/task_view');
+
+  mediator = Backbone.Mediator;
 
   TaskIndexView = (function(_super) {
 
@@ -1091,9 +1091,10 @@ window.require.define({"views/task_index_view": function(exports, require, modul
     };
 
     TaskIndexView.prototype.addTask = function(name) {
-      return this.collection.create({
+      this.collection.create({
         "name": name
       });
+      return Backbone.Mediator.publish("flash:notice", "Added task \"" + (task.get('name')) + "\"");
     };
 
     TaskIndexView.prototype.addOne = function(task, collection) {
@@ -1105,14 +1106,13 @@ window.require.define({"views/task_index_view": function(exports, require, modul
     };
 
     TaskIndexView.prototype.clearAll = function() {
-      var completeTasks, task, _i, _len, _results;
+      var completeTasks, task, _i, _len;
       completeTasks = this.collection.done();
-      _results = [];
       for (_i = 0, _len = completeTasks.length; _i < _len; _i++) {
         task = completeTasks[_i];
-        _results.push(task.clear());
+        task.clear();
       }
-      return _results;
+      return Backbone.Mediator.publish("flash:notice", "Cleared " + completeTasks.length + " tasks");
     };
 
     return TaskIndexView;
@@ -1121,6 +1121,109 @@ window.require.define({"views/task_index_view": function(exports, require, modul
 
   if (typeof module !== "undefined" && module !== null) {
     module.exports = TaskIndexView;
+  }
+  
+}});
+
+window.require.define({"views/task_view": function(exports, require, module) {
+  var TaskView,
+    __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
+    __hasProp = {}.hasOwnProperty,
+    __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+  TaskView = (function(_super) {
+
+    __extends(TaskView, _super);
+
+    function TaskView() {
+      this.setClasses = __bind(this.setClasses, this);
+
+      this.clearTransitions = __bind(this.clearTransitions, this);
+
+      this.exit_anim_complete = __bind(this.exit_anim_complete, this);
+
+      this.exit = __bind(this.exit, this);
+
+      this.pulse = __bind(this.pulse, this);
+
+      this.toggle = __bind(this.toggle, this);
+
+      this.render = __bind(this.render, this);
+
+      this.initialize = __bind(this.initialize, this);
+      return TaskView.__super__.constructor.apply(this, arguments);
+    }
+
+    TaskView.prototype.className = "task label label-success";
+
+    TaskView.prototype.tagName = "li";
+
+    TaskView.prototype.template = require("templates/task_view_template");
+
+    TaskView.prototype.events = {
+      "click": "toggle",
+      "webkitAnimationEnd": "clearTransitions",
+      "animationend": "clearTransitions"
+    };
+
+    TaskView.prototype.initialize = function() {
+      this.model.on("change", this.render);
+      return this.model.on("destroy", this.exit);
+    };
+
+    TaskView.prototype.render = function() {
+      this.$el.html(this.template(this.model));
+      console.log("rendering");
+      this.setClasses();
+      if (this.model.hasChanged("complete")) {
+        this.pulse();
+      }
+      return this;
+    };
+
+    TaskView.prototype.toggle = function() {
+      return this.model.toggleDone();
+    };
+
+    TaskView.prototype.pulse = function() {
+      this.$el.removeClass("pulse");
+      return this.$el.addClass("animated pulse");
+    };
+
+    TaskView.prototype.exit = function() {
+      console.log("Removing view");
+      this.delegateEvents({
+        "webkitAnimationEnd": "exit_anim_complete",
+        "animationend": "exit_anim_complete"
+      });
+      return this.$el.addClass("animated fadeOutLeft");
+    };
+
+    TaskView.prototype.exit_anim_complete = function(event) {
+      return this.remove();
+    };
+
+    TaskView.prototype.clearTransitions = function(event) {
+      console.log("removing transition classes");
+      return this.$el.removeClass("animated flipInX pulse");
+    };
+
+    TaskView.prototype.setClasses = function() {
+      if (this.model.get('complete') === true) {
+        this.$el.addClass('done label-danger');
+        return this.$el.removeClass('label-success');
+      } else {
+        this.$el.removeClass('done label-danger');
+        return this.$el.addClass('label-success');
+      }
+    };
+
+    return TaskView;
+
+  })(Backbone.View);
+
+  if (typeof module !== "undefined" && module !== null) {
+    module.exports = TaskView;
   }
   
 }});

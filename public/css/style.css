@@ -51,11 +51,16 @@ ul.tasklist {
     visibility: visible; }
   ul.tasklist li.task.done {
     text-decoration: line-through;
-    opacity: 0.7; }
+    opacity: 0.7;
+    border-radius: 12px; }
 
-@keyframes fadein {
-  0% {
-    opacity: 0; }
+section.flash {
+  -webkit-animation-delay: 2s;
+  -moz-animation-delay: 2s;
+  -ms-animation-delay: 2s;
+  -o-animation-delay: 2s;
+  animation-delay: 0s;
+  position: absolute; }
 
-  100% {
-    opacity: 1; } }
+.animated.delayed {
+  animation-delay: 4s; }

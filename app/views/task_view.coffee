@@ -6,25 +6,31 @@ class TaskView extends Backbone.View
 		"click": "toggle"
 		"webkitAnimationEnd":"clearTransitions"
 		"animationend":"clearTransitions"
-		
+
 	initialize: =>
 		# bind to model events
-		@model.on "change", @render
-		@model.on "destroy", @exit
+		@model.on "change", @render # re-render on changes to the model
+		@model.on "destroy", @exit # remove the view when the model is destroyed
 	
 	render: =>
+		# render the template
 		@$el.html @template @model
 		console.log "rendering"
+		# set css class for transitions
 		@setClasses()
+		# trigger a pulse anim if the task state changes
+		@pulse() if @model.hasChanged "complete"
 		this
 		
 	# toggle the task state
 	toggle: =>
 		@model.toggleDone()
-		@setClasses()
+
+
+	pulse: =>
+		# Trigger "Pulsing" anim
 		@$el.removeClass "pulse"
 		@$el.addClass "animated pulse"
-		@render
 
 	# Animate out
 	exit: =>
@@ -33,7 +39,7 @@ class TaskView extends Backbone.View
 		@delegateEvents
 			"webkitAnimationEnd":"exit_anim_complete"
 			"animationend":"exit_anim_complete"
-		# add the css anim
+		# add the css exit anim
 		@$el.addClass "animated fadeOutLeft"
 
 
@@ -41,6 +47,7 @@ class TaskView extends Backbone.View
 		# remove the view
 		@remove()
 
+	# clear transition anim classes
 	clearTransitions: (event)=>
 		console.log "removing transition classes" 
 		@$el.removeClass "animated flipInX pulse"
