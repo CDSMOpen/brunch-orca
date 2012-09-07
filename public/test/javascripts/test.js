@@ -429,10 +429,10 @@ window.require.define({"test/models/task_test": function(exports, require, modul
   TaskModel = require('models/task');
 
   describe("Task", function() {
-    beforeEach(function() {
-      return this.task = new TaskModel();
-    });
     describe("New instances", function() {
+      beforeEach(function() {
+        return this.task = new TaskModel();
+      });
       it("should have a default name", function() {
         return this.task.get('name').should.not.be.empty;
       });
@@ -441,9 +441,10 @@ window.require.define({"test/models/task_test": function(exports, require, modul
       });
     });
     describe("task.toggleDone", function() {
-      it("should be available", function() {
-        return this.task.should.respondTo('toggleDone');
+      beforeEach(function() {
+        return this.task = new TaskModel();
       });
+      it("should be available", function() {});
       return it("should toggle the 'complete' state between 'true' and 'false'", function() {
         this.task.toggleDone();
         this.task.get('complete').should.be["true"];
@@ -485,7 +486,17 @@ window.require.define({"test/views/task_view_test": function(exports, require, m
   describe("TaskView", function() {
     beforeEach(function() {
       var taskModel;
-      taskModel = new Backbone.Model();
+      taskModel = {
+        on: function() {
+          return console.log("Fake 'on'");
+        },
+        get: function() {
+          return console.log("Fake 'get'");
+        },
+        hasChanged: function() {
+          return console.log("Fake 'hasChanged'");
+        }
+      };
       this.stubTaskOn = sinon.stub(taskModel, 'on');
       return this.taskView = new TaskView({
         model: taskModel
@@ -549,7 +560,6 @@ window.require.define({"test/views/task_view_test": function(exports, require, m
     });
     describe("Entrance animation events", function() {
       beforeEach(function() {
-        this.taskView.render();
         return this.taskView.$el.addClass('animated');
       });
       return it("removes 'animated' class on animation end event", function() {

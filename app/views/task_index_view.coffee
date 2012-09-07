@@ -34,7 +34,7 @@ class TaskIndexView extends Backbone.View
 		# create a new task model on the collection
 		@collection.create "name":name
 		# publish a "flash" message
-		Backbone.Mediator.publish("flash:notice", "Added task \"#{task.get('name')}\"")
+		Backbone.Mediator.publish("flash:notice", "Added task \"#{name}\"")
 
 	# triggered when new items are added to the collection
 	addOne: (task, collection)=>

@@ -1,13 +1,13 @@
 {
-	"author": "Ian Llewellyn",
-	"name": "thinqi-player",
-	"description": "",
+	"author": "Darren Wallace",
+	"name": "Brunch-Orca",
+	"description": "Simple task list - simple app skeleton for experimentation only",
 	"version": "0.0.1",
 	"homepage": "",
 	"repository":
 	{
-		"type": "subversion",
-		"url": ""
+		"type": "git",
+		"url": "https://github.com/CDSMOpen/brunch-orca"
 	},
 	"engines":
 	{
@@ -20,17 +20,17 @@
 	},
 	"dependencies":
 	{
-		"javascript-brunch": ">= 1.0 < 1.4",
-		"coffee-script-brunch": ">= 1.0 < 1.4",
+		"javascript-brunch": ">= 1.0 < 1.5",
+		"coffee-script-brunch": ">= 1.0 < 1.5",
 		
-		"css-brunch": ">= 1.0 < 1.4",
+		"css-brunch": ">= 1.0 < 1.5",
 		"sass-brunch": ">= 1.0 < 1.5",
-		"less-brunch": "~1.4.0",
+		"less-brunch": ">= 1.0 < 1.5",
 		
-		"eco-brunch": "1.1.0",
+		"eco-brunch": ">= 1.0 < 1.5",
 		
-		"uglify-js-brunch": ">= 1.0 < 1.4",
-		"clean-css-brunch": ">= 1.0 < 1.4"
+		"uglify-js-brunch": ">= 1.0 < 1.5",
+		"clean-css-brunch": ">= 1.0 < 1.5"
 	},
 	"devDependencies":
 	{

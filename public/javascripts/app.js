@@ -1094,7 +1094,7 @@ window.require.define({"views/task_index_view": function(exports, require, modul
       this.collection.create({
         "name": name
       });
-      return Backbone.Mediator.publish("flash:notice", "Added task \"" + (task.get('name')) + "\"");
+      return Backbone.Mediator.publish("flash:notice", "Added task \"" + name + "\"");
     };
 
     TaskIndexView.prototype.addOne = function(task, collection) {

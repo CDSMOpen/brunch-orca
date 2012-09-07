@@ -17,6 +17,7 @@ exports.config =
 						'vendor/scripts/backbone-mediator.js'
 						'vendor/scripts/jquery.mockjax.js'
 						'app/mocks/mock_services.js'
+						'vendor/scripts/localstorage.polyfill.coffee'
 						'vendor/scripts/backbone.localstorage.js'
 						
 						# 'vendor/scripts/cdsm/support/model.coffee'

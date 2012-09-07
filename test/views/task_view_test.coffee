@@ -3,9 +3,12 @@ TaskModel = require 'models/task'
 
 describe "TaskView", ->
 	beforeEach ->
-		# N.B. Not using concrete Task model to avoid dependency. Will use
-		# Backbone.Model instead and stub out missing methods
-		taskModel = new Backbone.Model() 
+		# N.B.  avoiding dependency on TaskModel by providing fake object.
+		# Methods are stubbed out as necessary
+		taskModel = 
+			on: -> console.log "Fake 'on'"
+			get: -> console.log "Fake 'get'"
+			hasChanged: -> console.log "Fake 'hasChanged'"
 		@stubTaskOn = sinon.stub(taskModel, 'on')
 		@taskView = new TaskView model: taskModel
 		# @modelPropertiesSpy = sinon.spy @taskView.model, 'get'
@@ -64,7 +67,6 @@ describe "TaskView", ->
 
 	describe "Entrance animation events", ->
 		beforeEach ->
-			@taskView.render()
 			# new tasks added through the browser (as opposed to those loaded
 			# in from the local store) have the 'animated' class added to them
 			# to provide an entrance anim. Simulate that here by adding the

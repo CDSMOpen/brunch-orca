@@ -3297,7 +3297,131 @@
 /**
  * Backbone localStorage Adapter
  * https://github.com/jeromegn/Backbone.localStorage
- */(function(){function n(){return((1+Math.random())*65536|0).toString(16).substring(1)}function r(){return n()+n()+"-"+n()+"-"+n()+"-"+n()+"-"+n()+n()+n()}var e=this._,t=this.Backbone;t.LocalStorage=window.Store=function(e){this.name=e;var t=this.localStorage().getItem(this.name);this.records=t&&t.split(",")||[]},e.extend(t.LocalStorage.prototype,{save:function(){this.localStorage().setItem(this.name,this.records.join(","))},create:function(e){return e.id||(e.id=r(),e.set(e.idAttribute,e.id)),this.localStorage().setItem(this.name+"-"+e.id,JSON.stringify(e)),this.records.push(e.id.toString()),this.save(),e.toJSON()},update:function(t){return this.localStorage().setItem(this.name+"-"+t.id,JSON.stringify(t)),e.include(this.records,t.id.toString())||this.records.push(t.id.toString()),this.save(),t.toJSON()},find:function(e){return JSON.parse(this.localStorage().getItem(this.name+"-"+e.id))},findAll:function(){return e(this.records).chain().map(function(e){return JSON.parse(this.localStorage().getItem(this.name+"-"+e))},this).compact().value()},destroy:function(t){return this.localStorage().removeItem(this.name+"-"+t.id),this.records=e.reject(this.records,function(e){return e==t.id.toString()}),this.save(),t},localStorage:function(){return localStorage}}),t.LocalStorage.sync=window.Store.sync=t.localSync=function(e,t,n,r){var i=t.localStorage||t.collection.localStorage;typeof n=="function"&&(n={success:n,error:r});var s;switch(e){case"read":s=t.id!=undefined?i.find(t):i.findAll();break;case"create":s=i.create(t);break;case"update":s=i.update(t);break;case"delete":s=i.destroy(t)}s?n.success(s):n.error("Record not found")},t.ajaxSync=t.sync,t.getSyncMethod=function(e){return e.localStorage||e.collection&&e.collection.localStorage?t.localSync:t.ajaxSync},t.sync=function(e,n,r,i){return t.getSyncMethod(n).apply(this,[e,n,r,i])}})();;
+ */
+
+(function() {
+// A simple module to replace `Backbone.sync` with *localStorage*-based
+// persistence. Models are given GUIDS, and saved into a JSON object. Simple
+// as that.
+
+// Generate four random hex digits.
+function S4() {
+   return (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+};
+
+// Generate a pseudo-GUID by concatenating random hexadecimal.
+function guid() {
+   return (S4()+S4()+"-"+S4()+"-"+S4()+"-"+S4()+"-"+S4()+S4()+S4());
+};
+
+// Our Store is represented by a single JS object in *localStorage*. Create it
+// with a meaningful name, like the name you'd give a table.
+// window.Store is deprectated, use Backbone.LocalStorage instead
+Backbone.LocalStorage = window.Store = function(name) {
+  this.name = name;
+  var store = this.localStorage().getItem(this.name);
+  this.records = (store && store.split(",")) || [];
+};
+
+_.extend(Backbone.LocalStorage.prototype, {
+
+  // Save the current state of the **Store** to *localStorage*.
+  save: function() {
+    this.localStorage().setItem(this.name, this.records.join(","));
+  },
+
+  // Add a model, giving it a (hopefully)-unique GUID, if it doesn't already
+  // have an id of it's own.
+  create: function(model) {
+    if (!model.id) model.id = model.attributes[model.idAttribute] = guid();
+    this.localStorage().setItem(this.name+"-"+model.id, JSON.stringify(model));
+    this.records.push(model.id.toString());
+    this.save();
+    return model;
+  },
+
+  // Update a model by replacing its copy in `this.data`.
+  update: function(model) {
+    this.localStorage().setItem(this.name+"-"+model.id, JSON.stringify(model));
+    if (!_.include(this.records, model.id.toString())) this.records.push(model.id.toString()); this.save();
+    return model;
+  },
+
+  // Retrieve a model from `this.data` by id.
+  find: function(model) {
+    return JSON.parse(this.localStorage().getItem(this.name+"-"+model.id));
+  },
+
+  // Return the array of all models currently in storage.
+  findAll: function() {
+    return _(this.records).chain()
+        .map(function(id){return JSON.parse(this.localStorage().getItem(this.name+"-"+id));}, this)
+        .compact()
+        .value();
+  },
+
+  // Delete a model from `this.data`, returning it.
+  destroy: function(model) {
+    this.localStorage().removeItem(this.name+"-"+model.id);
+    this.records = _.reject(this.records, function(record_id){return record_id == model.id.toString();});
+    this.save();
+    return model;
+  },
+
+  localStorage: function() {
+      return localStorage;
+  }
+
+});
+
+// localSync delegate to the model or collection's
+// *localStorage* property, which should be an instance of `Store`.
+// window.Store.sync and Backbone.localSync is deprectated, use Backbone.LocalStorage.sync instead
+Backbone.LocalStorage.sync = window.Store.sync = Backbone.localSync = function(method, model, options, error) {
+  var store = model.localStorage || model.collection.localStorage;
+
+  // Backwards compatibility with Backbone <= 0.3.3
+  if (typeof options == 'function') {
+    options = {
+      success: options,
+      error: error
+    };
+  }
+
+  var resp;
+
+  switch (method) {
+    case "read":    resp = model.id != undefined ? store.find(model) : store.findAll(); break;
+    case "create":  resp = store.create(model);                            break;
+    case "update":  resp = store.update(model);                            break;
+    case "delete":  resp = store.destroy(model);                           break;
+  }
+
+  if (resp) {
+    options.success(resp);
+  } else {
+    options.error("Record not found");
+  }
+};
+
+Backbone.ajaxSync = Backbone.sync;
+
+Backbone.getSyncMethod = function(model) {
+	if(model.localStorage || (model.collection && model.collection.localStorage))
+	{
+		return Backbone.localSync;
+	}
+
+	return Backbone.ajaxSync;
+};
+
+// Override 'Backbone.sync' to default to localSync,
+// the original 'Backbone.sync' is still available in 'Backbone.ajaxSync'
+Backbone.sync = function(method, model, options, error) {
+	Backbone.getSyncMethod(model).apply(this, [method, model, options, error]);
+};
+
+})();;
 
 var _ref;
 
@@ -3510,5 +3634,116 @@ support.View = (function(_super) {
   return View;
 
 })(Backbone.View);
+;
+
+
+if (typeof window.localStorage === "undefined" || typeof window.sessionStorage === "undefined") {
+  (function() {
+    var Storage;
+    Storage = function(type) {
+      var clearData, createCookie, data, getData, readCookie, setData;
+      createCookie = function(name, value, days) {
+        var date, expires;
+        date = void 0;
+        expires = void 0;
+        if (days) {
+          date = new Date();
+          date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+          expires = "; expires=" + date.toGMTString();
+        } else {
+          expires = "";
+        }
+        return document.cookie = name + "=" + value + expires + "; path=/";
+      };
+      readCookie = function(name) {
+        var c, ca, i, nameEQ;
+        nameEQ = name + "=";
+        ca = document.cookie.split(";");
+        i = void 0;
+        c = void 0;
+        i = 0;
+        while (i < ca.length) {
+          c = ca[i];
+          while (c.charAt(0) === " ") {
+            c = c.substring(1, c.length);
+          }
+          if (c.indexOf(nameEQ) === 0) {
+            return c.substring(nameEQ.length, c.length);
+          }
+          i++;
+        }
+        return null;
+      };
+      setData = function(data) {
+        data = JSON.stringify(data);
+        if (type === "session") {
+          return window.name = data;
+        } else {
+          return createCookie("localStorage", data, 365);
+        }
+      };
+      clearData = function() {
+        if (type === "session") {
+          return window.name = "";
+        } else {
+          return createCookie("localStorage", "", 365);
+        }
+      };
+      getData = function() {
+        var data;
+        data = (type === "session" ? window.name : readCookie("localStorage"));
+        if (data) {
+          return JSON.parse(data);
+        } else {
+          return {};
+        }
+      };
+      data = getData();
+      return {
+        length: 0,
+        clear: function() {
+          data = {};
+          this.length = 0;
+          return clearData();
+        },
+        getItem: function(key) {
+          if (data[key] === undefined) {
+            return null;
+          } else {
+            return data[key];
+          }
+        },
+        key: function(i) {
+          var ctr, k;
+          ctr = 0;
+          for (k in data) {
+            if (ctr === i) {
+              return k;
+            } else {
+              ctr++;
+            }
+          }
+          return null;
+        },
+        removeItem: function(key) {
+          delete data[key];
+          this.length--;
+          return setData(data);
+        },
+        setItem: function(key, value) {
+          data[key] = value + "";
+          this.length++;
+          return setData(data);
+        }
+      };
+    };
+    if (typeof window.localStorage === "undefined") {
+      window.localStorage = new Storage("local");
+    }
+    if (typeof window.sessionStorage === "undefined") {
+      return window.sessionStorage = new Storage("session");
+    }
+  })();
+}
 ;
 

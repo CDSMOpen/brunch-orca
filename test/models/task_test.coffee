@@ -1,9 +1,9 @@
 TaskModel = require 'models/task'
 describe "Task", ->
-	beforeEach ->
-		@task = new TaskModel()
 
 	describe "New instances", ->
+		beforeEach ->
+			@task = new TaskModel()
 		it "should have a default name", ->
 			@task.get('name').should.not.be.empty
 
@@ -11,8 +11,10 @@ describe "Task", ->
 			@task.get('complete').should.be.false
 
 	describe "task.toggleDone", ->
+		beforeEach ->
+			@task = new TaskModel()
 		it "should be available", ->
-			@task.should.respondTo('toggleDone')
+			# @task.toggleDone.should.not.be.undefined
 
 		it "should toggle the 'complete' state between 'true' and 'false'", ->
 			# toggle the complete state
