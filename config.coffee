@@ -27,8 +27,8 @@ exports.config =
 		stylesheets:
 			joinTo:
 				'css/style.css': /^app\/styles/
-				'css/vendor.css': /^vendor.+styles.+(bootstrap\.less|responsive\.less)$/
-				# 'css/vendor.css': /^vendor/
+				# 'css/vendor.css': /^vendor.+styles.+(bootstrap\.less|responsive\.less)$/
+				'css/vendor.css': /^vendor/
 				'test/css/test.css': /^test/
 			order:
 				before:

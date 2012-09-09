@@ -564,7 +564,7 @@ window.require.define({"test/views/task_view_test": function(exports, require, m
       });
       return it("removes 'animated' class on animation end event", function() {
         this.taskView.$el.trigger('animationend');
-        return this.taskView.$el.hasClass('animated').should.not.be["true"];
+        return this.taskView.$el.hasClass('animated').should.not.be.trpue;
       });
     });
     return describe("Exit", function() {
