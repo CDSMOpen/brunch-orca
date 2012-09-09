@@ -16,7 +16,7 @@
 	"scripts":
 	{
 		"start": "brunch watch --server",
-		"test": "brunch test"
+		"test": "brunch test -r teamcity"
 	},
 	"dependencies":
 	{

@@ -6,9 +6,13 @@ describe "TaskView", ->
 		# N.B.  avoiding dependency on TaskModel by providing fake object.
 		# Methods are stubbed out as necessary
 		taskModel = 
-			on: -> console.log "Fake 'on'"
-			get: -> console.log "Fake 'get'"
-			hasChanged: -> console.log "Fake 'hasChanged'"
+			on: -> 
+				console.log "Fake 'on'"
+			get: -> 
+				console.log "Fake 'get'"
+			hasChanged: -> 
+				console.log "Fake 'hasChanged'"
+				
 		@stubTaskOn = sinon.stub(taskModel, 'on')
 		@taskView = new TaskView model: taskModel
 		# @modelPropertiesSpy = sinon.spy @taskView.model, 'get'
