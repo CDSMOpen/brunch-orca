@@ -1,6 +1,8 @@
 # brunch-orca
 
-**brunch-orca** is a [brunch](http://brunch.io) skeleton that uses [coffeescript](http://coffeescript.org/), [compass](http://compass-style.org/), [eco](https://github.com/sstephenson/eco/), [jquery](http://jquery.com/), [backbone](http://backbonejs.org/), [mocha](http://visionmedia.github.com/mocha/), [sinon](http://sinonjs.org/) and [chai](http://chaijs.com/) with styling by [Twitter Bootstrap](http://twitter.github.com/bootstrap/index.html).
+**brunch-orca** is a [brunch](http://brunch.io) skeleton that uses [coffeescript](http://coffeescript.org/), [compass](http://compass-style.org/), [eco](https://github.com/sstephenson/eco/), [jquery](http://jquery.com/), [backbone](http://backbonejs.org/), [mocha](http://visionmedia.github.com/mocha/), [sinon](http://sinonjs.org/) and [chai](http://chaijs.com/) with styling by [Twitter Bootstrap](http://twitter.github.com/bootstrap/index.html). Also uses [Animate.css](http://daneden.me/animate/) for simple transitions.
+
+Uses the Backbone.Mediator pattern for event subscription.
 
 ## Usage
 
@@ -22,4 +24,4 @@ See package.json
 
 ## ToDo
 
-There's a simple ToDo app /#todos to demonstrate some basic features. Uses [Mockjax](https://github.com/appendto/jquery-mockjax) to mock out Jquery Ajax calls to the service layer.
+There's a simple ToDo app /#todos to demonstrate some basic features. [Backbone.LocalStorage](https://github.com/jeromegn/Backbone.localStorage) for persistence. (Uses a localstorage polyfill for headless testing - local storage wouldn't be available otherwise) 
