@@ -1,0 +1,5 @@
+<project name="BrunchOrca-Todos" basedir=".">
+	<target name="ignore-world-message">
+		<echo message="World. You may be a figment of my imagination."></echo>
+	</target>
+</project>

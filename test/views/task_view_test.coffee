@@ -75,7 +75,7 @@ describe "TaskView", ->
 
 		it "removes 'animated' class on animation end event", ->
 			@taskView.$el.trigger('animationend')
-			@taskView.$el.hasClass('animated').should.not.be.true
+			@taskView.$el.hasClass('animated').should.not.be.trpue
 
 	describe "Exit", ->
 		it "has no animated class before exit called", ->
