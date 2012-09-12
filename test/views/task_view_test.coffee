@@ -7,11 +7,11 @@ describe "TaskView", ->
 		# Methods are stubbed out as necessary
 		taskModel = 
 			on: -> 
-				console.log "Fake 'on'"
+				true
 			get: -> 
-				console.log "Fake 'get'"
+				true
 			hasChanged: -> 
-				console.log "Fake 'hasChanged'"
+				true
 				
 		@stubTaskOn = sinon.stub(taskModel, 'on')
 		@taskView = new TaskView model: taskModel
