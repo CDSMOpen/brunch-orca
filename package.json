@@ -2,7 +2,7 @@
 	"author": "Darren Wallace",
 	"name": "Brunch-Orca",
 	"description": "Simple task list - simple app skeleton for experimentation only",
-	"version": "0.0.1",
+	"version": "0.1.1",
 	"homepage": "",
 	"repository":
 	{
@@ -11,7 +11,7 @@
 	},
 	"engines":
 	{
-		"node": "~0.6.10 || 0.8 || 0.9"
+		"node": "~0.6.10 || 0.8.6 || 0.9"
 	},
 	"scripts":
 	{
